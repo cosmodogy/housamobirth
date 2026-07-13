@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东京放课后召唤师 - 角色身高体重查询</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #f7f8fa;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+        .main-title {
+            font-size: 32px;
+            color: #553fc9;
+            margin-bottom: 12px;
+        }
+        .sub-title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        .lang-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .lang-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lang-btn.active {
+            background: #553fc9;
+            color: white;
+        }
+        .lang-btn:not(.active) {
+            background: #efeaff;
+            color: #553fc9;
+        }
+        .birthday-banner {
+            background: #f3eaff;
+            border-left: 4px solid #e86868;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .banner-title {
+            font-size: 20px;
+            color: #e04b4b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .birthday-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .birthday-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+        .birthday-item img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .search-area {
+            display: flex;
+            gap: 10px;
+            margin: 24px 0;
+        }
+        #searchInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .search-btn, .reset-btn {
+            padding: 0 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            height: 48px;
+        }
+        .search-btn {
+            background: #553fc9;
+            color: white;
+        }
+        .reset-btn {
+            background: #efeaff;
+            color: #553fc9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        /* 表头核心样式：文字+箭头横向排列，兼容所有布局 */
+        th {
+            background: #553fc9;
+            color: white;
+            padding: 14px 8px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            /* 强制文字和箭头在一行显示 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            width: 100%;
+            height: 100%;
+        }
+        /* 排序箭头容器：强制显示，永不隐藏 */
+        .sort-arrows {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 18px !important;
+            height: 20px !important;
+            flex-shrink: 0 !important;
+        }
+        /* 箭头样式：强制可见，优先级最高 */
+        .sort-arrow {
+            font-size: 14px !important;
+            font-weight: bold !important;
+            color: #ffffff !important;
+            line-height: 1 !important;
+            opacity: 0.4 !important;
+            transition: opacity 0.2s !important;
+            display: inline-block !important;
+        }
+        /* 当前排序箭头：纯白高亮 */
+        .sort-arrow.active {
+            opacity: 1 !important;
+            color: #ffffff !important;
+        }
+        /* 表头单元格样式：确保th容器足够大 */
+        th[data-sort] {
+            min-width: 70px;
+        }
+        th[data-sort="avatar"] {
+            cursor: default;
+        }
+        th:hover:not([data-sort="avatar"]) {
+            background: #664edb;
+        }
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover td {
+            background: #f9f7ff;
+        }
+        .avatar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+        .loading-text {
+            padding: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+        /* 表格列宽适配：新增编号列，7列网格 */
+        thead tr {
+            display: grid;
+            grid-template-columns: 70px 80px 1fr 120px 120px 80px 100px;
+        }
+        tbody tr {
+            display: grid;
+            grid-template-columns: 70px 80px 1fr 120px 120px 80px 100px;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            thead tr, tbody tr {
+                grid-template-columns: 60px 60px 1fr 80px 80px 60px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-card">
+        <h1 class="main-title" data-i18n="gameTitle">东京放课后召唤师</h1>
+        <p class="sub-title" data-i18n="subTitle">角色身高体重数据查询系统</p>
+        <div class="lang-buttons">
+            <button class="lang-btn active" data-lang="zh">简体中文</button>
+            <button class="lang-btn" data-lang="ja">日本語</button>
+            <button class="lang-btn" data-lang="en">English</button>
+        </div>
+    </div>
+
+    <!-- 今日寿星 -->
+    <div class="birthday-banner">
+        <h3 class="banner-title" data-i18n="todayBirthday">🎂 今日寿星</h3>
+        <div id="todayBirthWrap">
+            <span data-i18n="noBirthToday">今天没有角色过生日</span>
+        </div>
+        <div class="birthday-list" id="todayBirthList"></div>
+    </div>
+
+    <!-- 未来一周寿星 -->
+    <div class="birthday-banner">
+        <h3 class="banner-title" data-i18n="weekBirthday">🎂 未来一周寿星</h3>
+        <div id="weekBirthWrap">
+            <span data-i18n="noBirthWeek">未来一周没有角色过生日</span>
+        </div>
+        <div class="birthday-list" id="weekBirthList"></div>
+    </div>
+
+    <!-- 搜索区 -->
+    <div class="search-area">
+        <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="搜索角色名...">
+        <button class="search-btn" data-i18n="searchBtn">搜索</button>
+        <button class="reset-btn" data-i18n="resetBtn">重置</button>
+    </div>
+
+    <!-- 角色表格：新增编号排序列，全部可排序表头带箭头 -->
+    <table>
+        <thead>
+            <tr>
+                <!-- 新增编号列 -->
+                <th data-sort="id" data-i18n="colId">
+                    编号
+                    <div class="sort-arrows">
+                        <span class="sort-arrow">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+                <th data-sort="avatar" data-i18n="colAvatar">头像</th>
+                <th data-sort="name" data-i18n="colName">
+                    角色名
+                    <div class="sort-arrows">
+                        <span class="sort-arrow active">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+                <th data-sort="height" data-i18n="colHeight">
+                    身高(cm)
+                    <div class="sort-arrows">
+                        <span class="sort-arrow">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+                <th data-sort="weight" data-i18n="colWeight">
+                    体重(kg)
+                    <div class="sort-arrows">
+                        <span class="sort-arrow">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+                <th data-sort="bmi" data-i18n="colBmi">
+                    BMI
+                    <div class="sort-arrows">
+                        <span class="sort-arrow">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+                <th data-sort="birthday" data-i18n="colBirth">
+                    生日
+                    <div class="sort-arrows">
+                        <span class="sort-arrow">↑</span>
+                        <span class="sort-arrow">↓</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- colspan改为7列 -->
+            <tr>
+                <td colspan="7" class="loading-text" data-i18n="loadFail">加载失败，请刷新页面重试</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer" data-i18n="footerText">
+        东京放课后召唤师 角色数据查询 | 数据来源: 游戏官方资料
+    </div>
+
+    <script>
+        // ========== 1. 多语言翻译字典（新增colId翻译） ==========
+        const i18nDict = {
+            zh: {
+                gameTitle: "东京放课后召唤师",
+                subTitle: "角色身高体重数据查询系统",
+                todayBirthday: "🎂 今日寿星",
+                weekBirthday: "🎂 未来一周寿星",
+                noBirthToday: "今天没有角色过生日",
+                noBirthWeek: "未来一周没有角色过生日",
+                searchPlaceholder: "搜索角色名...",
+                searchBtn: "搜索",
+                resetBtn: "重置",
+                colId: "编号",
+                colAvatar: "头像",
+                colName: "角色名",
+                colHeight: "身高(cm)",
+                colWeight: "体重(kg)",
+                colBmi: "BMI",
+                colBirth: "生日",
+                loadFail: "加载失败，请刷新页面重试",
+                footerText: "东京放课后召唤师 角色数据查询 | 数据来源: 游戏官方资料",
+                specialText: {
+                    secret: "保密",
+                    removeArmor: "去除铠甲后体重"
+                }
+            },
+            ja: {
+                gameTitle: "東京放課後サモナーズ",
+                subTitle: "キャラ身長体重データ検索システム",
+                todayBirthday: "🎂 今日誕生日キャラ",
+                weekBirthday: "🎂 一週間以内誕生日キャラ",
+                noBirthToday: "本日誕生日のキャラはいません",
+                noBirthWeek: "一週間以内誕生日のキャラはいません",
+                searchPlaceholder: "キャラ名で検索...",
+                searchBtn: "検索",
+                resetBtn: "リセット",
+                colId: "番号",
+                colAvatar: "アイコン",
+                colName: "キャラ名",
+                colHeight: "身長(cm)",
+                colWeight: "体重(kg)",
+                colBmi: "BMI",
+                colBirth: "誕生日",
+                loadFail: "データ読み込み失敗、ページを更新してください",
+                footerText: "東京放課後サモナーズ キャラデータ | 公式資料より",
+                specialText: {
+                    secret: "非公開",
+                    removeArmor: "鎧を外した体重"
+                }
+            },
+            en: {
+                gameTitle: "Tokyo Afterschool Summoners",
+                subTitle: "Character Height & Weight Database",
+                todayBirthday: "🎂 Today's Birthdays",
+                weekBirthday: "🎂 Birthdays In Next 7 Days",
+                noBirthToday: "No characters have birthdays today",
+                noBirthWeek: "No characters have birthdays in next week",
+                searchPlaceholder: "Search character name...",
+                searchBtn: "Search",
+                resetBtn: "Reset",
+                colId: "ID",
+                colAvatar: "Avatar",
+                colName: "Name",
+                colHeight: "Height(cm)",
+                colWeight: "Weight(kg)",
+                colBmi: "BMI",
+                colBirth: "Birthday",
+                loadFail: "Data load failed, refresh page to retry",
+                footerText: "Tokyo Afterschool Summoners Character Data | Official Source",
+                specialText: {
+                    secret: "Confidential",
+                    removeArmor: "Weight without armor"
+                }
+            }
+        };
+
+        // ========== 全局变量 ==========
+        let currentLang = "zh";
+        let allCharacters = [];
+        let filteredList = [];
+        let sortKey = "name";
+        let sortAsc = true;
+
+        // ========== DOM 元素缓存 ==========
+        const $ = s => document.querySelector(s);
+        const $$ = s => document.querySelectorAll(s);
+        const tableBody = $("#tableBody");
+        const searchInput = $("#searchInput");
+        const searchBtn = $(".search-btn");
+        const resetBtn = $(".reset-btn");
+        const langBtns = $$(".lang-btn");
+
+        // ========== 初始化语言切换事件 ==========
+        langBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetLang = btn.dataset.lang;
+                if(targetLang === currentLang) return;
+                langBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentLang = targetLang;
+                applyI18n();
+                renderTable();
+                renderBirthdayBanner();
+            })
+        })
+
+        // 应用翻译
+        function applyI18n() {
+            const t = i18nDict[currentLang];
+            document.documentElement.lang = currentLang === "zh" ? "zh-CN" : currentLang;
+            document.title = t.gameTitle + " - " + t.subTitle;
+
+            $$("[data-i18n]").forEach(el => {
+                const key = el.dataset.i18n;
+                if(t[key]) el.textContent = t[key];
+            })
+            $$("[data-i18n-placeholder]").forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                if(t[key]) el.placeholder = t[key];
+            })
+            updateSortArrows(); // 语言切换后重置箭头
+        }
+
+        // 翻译特殊文本
+        function transSpecialText(rawStr) {
+            const t = i18nDict[currentLang].specialText;
+            if(!rawStr) return "";
+            if(rawStr.includes("保密")) return rawStr.replace("保密", t.secret);
+            if(rawStr.includes("去除铠甲后体重")) return rawStr.replace("去除铠甲后体重", t.removeArmor);
+            return rawStr;
+        }
+
+        // ========== 排序核心逻辑（新增编号排序、修复角色名排序bug） ==========
+        // 初始化表头点击事件
+        function initSortEvent() {
+            const sortHeaders = $$("th[data-sort]");
+            sortHeaders.forEach(th => {
+                th.addEventListener("click", () => {
+                    const newKey = th.dataset.sort;
+                    if(newKey === "avatar") return;
+                    
+                    if(sortKey === newKey) sortAsc = !sortAsc;
+                    else {
+                        sortKey = newKey;
+                        sortAsc = true;
+                    }
+                    updateSortArrows();
+                    renderTable();
+                })
+            });
+            // 页面加载就强制渲染箭头
+            updateSortArrows();
+        }
+
+        // 更新箭头显示（核心修复：强制激活对应箭头）
+        function updateSortArrows() {
+            // 清空所有active
+            $$(".sort-arrow").forEach(arrow => arrow.classList.remove("active"));
+            // 给当前排序列加active
+            const activeTh = $(`th[data-sort="${sortKey}"]`);
+            if(activeTh) {
+                const arrows = activeTh.querySelectorAll(".sort-arrow");
+                // 升序激活↑，降序激活↓
+                if(sortAsc) {
+                    arrows[0].classList.add("active");
+                } else {
+                    arrows[1].classList.add("active");
+                }
+            }
+        }
+
+        // ========== 数据排序 ==========
+        function sortData(list) {
+            const arr = [...list];
+            arr.sort((a,b) => {
+                let valA, valB;
+                switch(sortKey) {
+                    // 新增：编号数字排序
+                    case "id":
+                        valA = Number(a.id) || 0;
+                        valB = Number(b.id) || 0;
+                        return sortAsc ? valA - valB : valB - valA;
+                    // 修复：角色名按当前语言文本排序
+                    case "name":
+                        const nameA = getNameByLang(a);
+                        const nameB = getNameByLang(b);
+                        return sortAsc 
+                            ? nameA.localeCompare(nameB, currentLang) 
+                            : nameB.localeCompare(nameA, currentLang);
+                    case "height":
+                        valA = parseNum(a.height);
+                        valB = parseNum(b.height);
+                        break;
+                    case "weight":
+                        valA = parseNum(a.weight);
+                        valB = parseNum(b.weight);
+                        break;
+                    case "bmi":
+                        valA = Number(a.bmi) || 0;
+                        valB = Number(b.bmi) || 0;
+                        break;
+                    case "birthday":
+                        valA = parseBirthdayNum(a.birthday);
+                        valB = parseBirthdayNum(b.birthday);
+                        break;
+                }
+                if(valA > valB) return sortAsc ? 1 : -1;
+                if(valA < valB) return sortAsc ? -1 : 1;
+                return 0;
+            })
+            return arr;
+        }
+
+        // 根据当前语言获取角色名（抽离复用）
+        function getNameByLang(char) {
+            if(currentLang === "zh") return char.nameZh || "";
+            if(currentLang === "ja") return char.nameJa || "";
+            return char.nameEn || "";
+        }
+
+        function parseNum(str) {
+            if(!str || typeof str !== "string") return 0;
+            const match = str.match(/[\d.]+/);
+            return match ? parseFloat(match[0]) : 0;
+        }
+
+        function parseBirthdayNum(bd) {
+            if(!bd) return 0;
+            const [m,d] = bd.split("/").map(Number);
+            return m * 100 + d;
+        }
+
+        // ========== 表格渲染（新增编号单元格） ==========
+        function renderTable() {
+            const sorted = sortData(filteredList);
+            tableBody.innerHTML = "";
+            if(sorted.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="loading-text">无匹配角色</td></tr>`;
+                return;
+            }
+            sorted.forEach(char => {
+                const tr = document.createElement("tr");
+                const avatarSrc = `avatar/${char.imgFile || 'default'}.png`;
+                const avatarHtml = `<img class="avatar-img" src="${avatarSrc}" onerror="this.src='avatar/default.png'">`;
+                const name = transSpecialText(getNameByLang(char) || "未知角色");
+                const height = transSpecialText(char.height || "");
+                const weight = transSpecialText(char.weight || "");
+                const bmi = char.bmi ? Number(char.bmi).toFixed(2) : "-";
+                const birth = char.birthday || "-";
+                const charId = char.id ?? "-";
+
+                // 新增第一列：编号
+                tr.innerHTML = `
+                    <td>${charId}</td>
+                    <td>${avatarHtml}</td>
+                    <td>${name}</td>
+                    <td>${height}</td>
+                    <td>${weight}</td>
+                    <td>${bmi}</td>
+                    <td>${birth}</td>
+                `;
+                tableBody.appendChild(tr);
+            })
+        }
+
+        // ========== 搜索逻辑 ==========
+        searchBtn.addEventListener("click", doSearch);
+        searchInput.addEventListener("keydown", e => e.key === "Enter" && doSearch());
+        resetBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            filteredList = [...allCharacters];
+            renderTable();
+        })
+        function doSearch() {
+            const kw = searchInput.value.trim().toLowerCase();
+            if(!kw) {
+                filteredList = [...allCharacters];
+                renderTable();
+                return;
+            }
+            filteredList = allCharacters.filter(c => {
+                const zh = (c.nameZh || "").toLowerCase();
+                const ja = (c.nameJa || "").toLowerCase();
+                const en = (c.nameEn || "").toLowerCase();
+                return zh.includes(kw) || ja.includes(kw) || en.includes(kw);
+            })
+            renderTable();
+        }
+
+        // ========== 寿星渲染 ==========
+        function renderBirthdayBanner() {
+            const todayList = $("#todayBirthList");
+            const weekList = $("#weekBirthList");
+            todayList.innerHTML = "";
+            weekList.innerHTML = "";
+
+            const now = new Date();
+            const todayM = now.getMonth() + 1;
+            const todayD = now.getDate();
+            const todayNum = todayM * 100 + todayD;
+
+            const weekNums = [];
+            for(let i=1; i<=7; i++) {
+                const d = new Date(now.getTime() + i * 24*60*60*1000);
+                const m = d.getMonth() + 1;
+                const day = d.getDate();
+                weekNums.push(m*100 + day);
+            }
+
+            let todayChars = [];
+            let weekChars = [];
+            allCharacters.forEach(c => {
+                if(!c.birthday) return;
+                const bdNum = parseBirthdayNum(c.birthday);
+                if(bdNum === todayNum) todayChars.push(c);
+                if(weekNums.includes(bdNum)) weekChars.push(c);
+            })
+
+            $("#todayBirthWrap").style.display = todayChars.length ? "none" : "block";
+            todayChars.forEach(c => {
+                const name = transSpecialText(getNameByLang(c) || "未知角色");
+                const item = document.createElement("div");
+                item.className = "birthday-item";
+                item.innerHTML = `<img src="avatar/${c.imgFile || 'default'}.png" onerror="this.src='avatar/default.png'"><span>${name}</span>`;
+                todayList.appendChild(item);
+            })
+
+            $("#weekBirthWrap").style.display = weekChars.length ? "none" : "block";
+            weekChars.forEach(c => {
+                const name = transSpecialText(getNameByLang(c) || "未知角色");
+                const item = document.createElement("div");
+                item.className = "birthday-item";
+                item.innerHTML = `<img src="avatar/${c.imgFile || 'default'}.png" onerror="this.src='avatar/default.png'"><span>${name} (${c.birthday})</span>`;
+                weekList.appendChild(item);
+            })
+        }
+
+        // ========== 加载数据（完全兼容原有json文件） ==========
+        async function loadCharacterData() {
+            try {
+                const res = await fetch("characters_data.json");
+                if(!res.ok) throw new Error(`HTTP错误：${res.status}`);
+                allCharacters = await res.json();
+                if(!Array.isArray(allCharacters)) throw new Error("JSON顶层不是数组");
+                
+                filteredList = [...allCharacters];
+                updateSortArrows();
+                renderTable();
+                renderBirthdayBanner();
+            } catch(err) {
+                console.error("数据加载失败详情：", err);
+                const t = i18nDict[currentLang];
+                tableBody.innerHTML = `<tr><td colspan="7" class="loading-text">${t.loadFail}<br>错误详情：${err.message}</td></tr>`;
+            }
+        }
+
+        // ========== 页面启动（强制初始化箭头） ==========
+        window.addEventListener("DOMContentLoaded", () => {
+            applyI18n();
+            initSortEvent(); // 先初始化排序事件+箭头
+            loadCharacterData(); // 再加载数据
+        })
+    </script>
+</body>
+</html>
