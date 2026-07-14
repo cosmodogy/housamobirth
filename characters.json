@@ -728,7 +728,7 @@
         "jaBirthday": "9月10日",
         "enBirthday": "September 10th",
         "birthdayMD": "09-10",
-        "bmiRaw": "21.22（不含尾巴）",
+        "bmiRaw": "21.22",
         "bmiNum": 21.22
  
 
@@ -1165,7 +1165,7 @@
         "jaBirthday": "7月8日",
         "enBirthday": "July 8th",
         "birthdayMD": "07-08",
-        "bmiRaw": "48.87（通常）",
+        "bmiRaw": "48.87",
         "bmiNum": 48.87
 
 
@@ -1188,7 +1188,7 @@
         "jaBirthday": "6月1日",
         "enBirthday": "June 1st",
         "birthdayMD": "06-01",
-        "bmiRaw": "44.68（实体时）",
+        "bmiRaw": "44.68",
         "bmiNum": 44.68
  
 
@@ -1234,7 +1234,7 @@
         "jaBirthday": "9月14日",
         "enBirthday": "September 14th",
         "birthdayMD": "09-14",
-        "bmiRaw": "48.75（龙种体型可变）",
+        "bmiRaw": "48.75",
         "bmiNum": 48.75
 
 
@@ -1257,7 +1257,7 @@
         "jaBirthday": "9月14日",
         "enBirthday": "September 14th",
         "birthdayMD": "09-14",
-        "bmiRaw": "39.68（龙种体型可变）",
+        "bmiRaw": "39.68",
         "bmiNum": 39.68
 
 
@@ -1533,7 +1533,7 @@
         "jaBirthday": "4月8日",
         "enBirthday": "April 8th",
         "birthdayMD": "04-08",
-        "bmiRaw": "36.60（去除铠甲）",
+        "bmiRaw": "36.60",
         "bmiNum": 36.60
  
 
@@ -1717,7 +1717,7 @@
         "jaBirthday": "2月4日",
         "enBirthday": "February 4th",
         "birthdayMD": "02-04",
-        "bmiRaw": "33.21（包含义肢）",
+        "bmiRaw": "33.21",
         "bmiNum": 33.21
  
 
@@ -1878,7 +1878,7 @@
         "jaBirthday": "11月21日",
         "enBirthday": "November 21st",
         "birthdayMD": "11-21",
-        "bmiRaw": "27.13（不含机械部分）",
+        "bmiRaw": "27.13",
         "bmiNum": 27.13
  
 
@@ -1901,7 +1901,7 @@
         "jaBirthday": "6月25日",
         "enBirthday": "June 25th",
         "birthdayMD": "06-25",
-        "bmiRaw": "22.38（仅包含肉体部分）",
+        "bmiRaw": "22.38",
         "bmiNum": 22.38
  
 
@@ -5857,7 +5857,7 @@
         "jaBirthday": "3月16日",
         "enBirthday": "March 16th",
         "birthdayMD": "03-16",
-        "bmiRaw": "189（成年状态）/16.5（幼年状态）",
+        "bmiRaw": "189/16.5",
         "bmiNum": null
 
 
