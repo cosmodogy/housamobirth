@@ -9,44 +9,37 @@
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Light.ttf") format("truetype");
-            font-weight: 300;
-            font-style: normal;
+            font-weight: 300; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Regular.ttf") format("truetype");
-            font-weight: 400;
-            font-style: normal;
+            font-weight: 400; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Medium.ttf") format("truetype");
-            font-weight: 500;
-            font-style: normal;
+            font-weight: 500; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Semibold.ttf") format("truetype");
-            font-weight: 600;
-            font-style: normal;
+            font-weight: 600; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Demibold.ttf") format("truetype");
-            font-weight: 650;
-            font-style: normal;
+            font-weight: 650; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Bold.ttf") format("truetype");
-            font-weight: 700;
-            font-style: normal;
+            font-weight: 700; font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Heavy.ttf") format("truetype");
-            font-weight: 900;
-            font-style: normal;
+            font-weight: 900; font-style: normal;
         }
 
         :root {
@@ -106,9 +99,9 @@
             align-items: center;
             margin-bottom: 18px;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 18px;
             background: var(--surface);
-            padding: 14px 20px;
+            padding: 18px 24px;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-light);
@@ -116,26 +109,25 @@
 
         .lang-group {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             background: var(--surface-alt);
-            border-radius: 10px;
-            padding: 4px;
+            border-radius: 12px;
+            padding: 5px;
             border: 1px solid var(--border-light);
         }
 
         .lang-group button {
-            padding: 7px 16px;
+            padding: 10px 22px;
             border: none;
             background: transparent;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 20px;
             color: var(--text-secondary);
             letter-spacing: 0.01em;
             white-space: nowrap;
-            position: relative;
         }
 
         .lang-group button:hover {
@@ -148,7 +140,7 @@
             color: #fff;
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(79, 125, 243, 0.3);
-            border-radius: 7px;
+            border-radius: 8px;
         }
 
         .lang-group button.active:hover {
@@ -157,11 +149,11 @@
         }
 
         .search-box {
-            padding: 9px 16px;
-            width: 300px;
+            padding: 12px 20px;
+            width: 400px;
             border: 1.5px solid var(--border);
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: 12px;
+            font-size: 20px;
             font-weight: 400;
             color: var(--text-primary);
             background: var(--surface-alt);
@@ -179,28 +171,27 @@
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(79, 125, 243, 0.08);
             background: #fff;
-            width: 340px;
+            width: 440px;
         }
 
         .count-text {
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 20px;
             letter-spacing: 0.02em;
             background: var(--surface-alt);
-            padding: 7px 14px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 22px;
             border: 1px solid var(--border-light);
             white-space: nowrap;
         }
 
-        /* 寿星提醒横幅 */
         .banner-box {
             background: var(--banner-bg);
             border: 1.5px solid var(--banner-border);
-            border-left: 5px solid var(--banner-accent);
+            border-left: 6px solid var(--banner-accent);
             border-radius: var(--radius-md);
-            padding: 16px 20px;
+            padding: 20px 24px;
             margin-bottom: 18px;
             display: none;
             box-shadow: var(--shadow-sm);
@@ -214,8 +205,8 @@
             position: absolute;
             top: -30px;
             right: -30px;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: radial-gradient(circle, rgba(232, 183, 48, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -227,21 +218,15 @@
         }
 
         @keyframes bannerSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .banner-title {
             font-weight: 700;
             color: #7a6518;
-            margin-bottom: 8px;
-            font-size: 15px;
+            margin-bottom: 12px;
+            font-size: 22px;
             letter-spacing: 0.02em;
             display: flex;
             align-items: center;
@@ -250,11 +235,11 @@
 
         .banner-title::before {
             content: '🎉';
-            font-size: 18px;
+            font-size: 24px;
         }
 
         .banner-list {
-            font-size: 14px;
+            font-size: 20px;
             color: var(--banner-text);
             line-height: 1.8;
             font-weight: 400;
@@ -265,14 +250,12 @@
             padding-left: 4px;
         }
 
-        /* 寿星名字 - 适度加粗，不刺眼 */
         .bday-name {
             font-weight: 650;
             color: var(--banner-name);
             letter-spacing: 0.02em;
         }
 
-        /* 日期 - 常规字重，颜色柔和 */
         .bday-date {
             font-weight: 400;
             color: #7a6a40;
@@ -292,7 +275,6 @@
             overflow: hidden;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-light);
-            /* 在宽屏下允许滚动，手机端将通过后续媒体查询强制不滚动 */
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -306,10 +288,11 @@
 
         th,
         td {
-            padding: 14px 12px;
+            padding: 20px 16px;
             text-align: center;
             border-bottom: 1px solid var(--border-light);
             font-weight: 400;
+            font-size: 20px;
             color: var(--text-primary);
             letter-spacing: 0.01em;
             vertical-align: middle;
@@ -321,7 +304,7 @@
             cursor: pointer;
             user-select: none;
             color: var(--text-primary);
-            font-size: 13.5px;
+            font-size: 20px;
             letter-spacing: 0.03em;
             text-transform: uppercase;
             position: sticky;
@@ -329,50 +312,28 @@
             z-index: 1;
             transition: background var(--transition);
             border-bottom: 2px solid #e2e9f3;
-            white-space: nowrap;
             vertical-align: middle;
         }
 
-        th:hover {
-            background: #edf2f9;
-        }
-
-        th:active {
-            background: #e4ecf7;
-        }
+        th:hover { background: #edf2f9; }
+        th:active { background: #e4ecf7; }
 
         th .sort-mark {
-            margin-left: 5px;
+            margin-left: 6px;
             color: var(--accent);
             font-weight: 700;
-            font-size: 12px;
+            font-size: 16px;
             display: inline-block;
             transition: transform var(--transition);
         }
 
-        th.sort-active .sort-mark {
-            color: var(--accent);
-        }
+        th.sort-active .sort-mark { color: var(--accent); }
 
-        tr {
-            transition: background var(--transition);
-        }
-
-        tr:hover td {
-            background: #fafcfe;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:nth-child(even) td {
-            background: #fafbfd;
-        }
-
-        tr:nth-child(even):hover td {
-            background: #f5f8fc;
-        }
+        tr { transition: background var(--transition); }
+        tr:hover td { background: #fafcfe; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #fafbfd; }
+        tr:nth-child(even):hover td { background: #f5f8fc; }
 
         td:nth-child(2) {
             font-weight: 500;
@@ -395,202 +356,162 @@
         }
 
         .avatar-img {
-            width: 100px;
-            height: 100px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 2px solid #eef2f8;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: var(--transition-slow);
             background: #f8fafc;
         }
 
         tr:hover .avatar-img {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             border-color: #dce4f0;
             transform: scale(1.04);
         }
 
         /* ========== 平板设备 ========== */
         @media (max-width: 900px) {
-            body {
-                padding: 12px 8px 24px;
-            }
-
+            body { padding: 12px 8px 24px; }
             .top-bar {
-                padding: 10px 14px;
-                gap: 10px;
+                padding: 12px 16px;
+                gap: 12px;
                 border-radius: var(--radius-sm);
             }
-
             .lang-group button {
-                padding: 6px 10px;
-                font-size: 12px;
-                border-radius: 6px;
+                padding: 8px 14px;
+                font-size: 16px;
+                border-radius: 8px;
             }
-
-            .lang-group button.active {
-                border-radius: 5px;
-            }
-
+            .lang-group button.active { border-radius: 6px; }
             .search-box {
                 width: 100%;
-                max-width: 260px;
-                font-size: 13px;
+                max-width: 320px;
+                font-size: 16px;
+            }
+            .search-box:focus { max-width: 340px; }
+            .count-text { font-size: 16px; padding: 8px 16px; }
+            th, td { padding: 12px 8px; font-size: 16px; }
+            th { font-size: 16px; }
+            .avatar-img {
+                width: 90px; height: 90px;
+                border-radius: 8px; border-width: 1.5px;
+            }
+            .banner-box {
+                padding: 14px 18px;
+                border-left-width: 5px;
+                border-radius: var(--radius-sm);
+            }
+            .banner-title { font-size: 18px; }
+            .banner-list { font-size: 16px; line-height: 1.7; }
+            .table-wrapper { border-radius: var(--radius-sm); }
+        }
+
+        /* ========== 手机端：两行标题栏，表格一屏显示且允许换行 ========== */
+        @media (max-width: 768px) {
+            /* 标题栏 Grid 两行布局 */
+            .top-bar {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 8px;
+                align-items: center;
+                padding: 10px 12px;
             }
 
-            .search-box:focus {
-                width: 100%;
-                max-width: 280px;
+            .lang-group {
+                grid-column: 1;
+                grid-row: 1;
+                justify-self: start;
             }
 
             .count-text {
-                font-size: 12px;
-                padding: 5px 10px;
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: end;
+                font-size: 14px;
+                padding: 6px 12px;
+                white-space: nowrap;
             }
 
-            th,
-            td {
-                padding: 10px 6px;
-                font-size: 12px;
+            .search-box {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                width: 100%;
+                max-width: 100%;
+                font-size: 16px;
+                margin: 0;
             }
 
-            th {
-                font-size: 11px;
+            .lang-group button {
+                padding: 6px 12px;
+                font-size: 14px;
             }
 
-            .avatar-img {
-                width: 56px;
-                height: 56px;
-                border-radius: 8px;
-                border-width: 1.5px;
-            }
-
-            .banner-box {
-                padding: 12px 14px;
-                border-left-width: 4px;
-                border-radius: var(--radius-sm);
-            }
-
-            .banner-title {
-                font-size: 13px;
-            }
-
-            .banner-list {
-                font-size: 12px;
-                line-height: 1.7;
-            }
-
+            /* 表格强制一屏内显示，内容允许换行 */
             .table-wrapper {
-                border-radius: var(--radius-sm);
-            }
-        }
-
-        /* ========== 手机端：强制一屏显示所有列，无横向滚动 ========== */
-        @media (max-width: 600px) {
-            .table-wrapper {
-                overflow-x: visible; /* 禁止滚动条 */
+                overflow-x: hidden;
             }
 
             table {
+                table-layout: fixed;
+                width: 100%;
                 min-width: 100%;
-                table-layout: fixed; /* 固定列宽，强制等分 */
             }
 
-            th,
-            td {
-                padding: 6px 2px;
-                font-size: 10px;
+            th, td {
+                padding: 10px 4px;
+                font-size: 14px;
+                white-space: normal;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
             }
 
             th {
-                font-size: 10px;
-                white-space: nowrap; /* 表头不换行，保持高度一致 */
-            }
-
-            /* 让角色名列稍微多一点空间 */
-            th:nth-child(2),
-            td:nth-child(2) {
-                padding-left: 2px;
-                padding-right: 2px;
+                font-size: 14px;
+                white-space: normal;
             }
 
             .avatar-img {
-                width: 36px;
-                height: 36px;
+                width: 52px;
+                height: 52px;
                 border-radius: 6px;
                 border-width: 1px;
             }
 
-            .no-data {
-                font-size: 9px;
-            }
-
-            /* 生日列可能较长，进一步缩小字体 */
-            td:nth-child(6) {
-                font-size: 9px;
-            }
+            .no-data { font-size: 13px; }
+            td:nth-child(6) { font-size: 14px; }
+            .bday-name { font-size: 14px; }
+            .bday-date { font-size: 13px; }
         }
 
-        /* 极小屏幕（如320px宽度）再压缩一点 */
         @media (max-width: 380px) {
-            th,
-            td {
-                padding: 4px 1px;
-                font-size: 9px;
+            th, td {
+                padding: 8px 2px;
+                font-size: 13px;
             }
-
-            th {
-                font-size: 9px;
-            }
-
+            th { font-size: 13px; }
             .avatar-img {
-                width: 30px;
-                height: 30px;
-                border-radius: 4px;
+                width: 44px;
+                height: 44px;
             }
-
-            td:nth-child(6) {
-                font-size: 8px;
-            }
-
-            .bday-name {
-                font-size: 11px;
-            }
-            .bday-date {
-                font-size: 10px;
+            .count-text {
+                font-size: 13px;
+                padding: 4px 8px;
             }
         }
 
-        /* 滚动条样式保留 */
-        .table-wrapper::-webkit-scrollbar {
-            height: 6px;
-        }
-        .table-wrapper::-webkit-scrollbar-track {
-            background: #f0f2f5;
-            border-radius: 3px;
-        }
-        .table-wrapper::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
-        .table-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #a0afc0;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d1d9e4;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #bcc6d4;
-        }
+        /* 滚动条样式 */
+        .table-wrapper::-webkit-scrollbar { height: 6px; }
+        .table-wrapper::-webkit-scrollbar-track { background: #f0f2f5; border-radius: 3px; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .table-wrapper::-webkit-scrollbar-thumb:hover { background: #a0afc0; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d9e4; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bcc6d4; }
     </style>
 </head>
 <body>
@@ -708,9 +629,7 @@
             try {
                 countText.innerText = "正在请求JSON文件";
                 const res = await fetch("./characters.json");
-                if (!res.ok) {
-                    throw new Error(`文件访问失败 状态码:${res.status}`);
-                }
+                if (!res.ok) throw new Error(`文件访问失败 状态码:${res.status}`);
                 countText.innerText = "正在解析数据";
                 allCharList = await res.json();
                 countText.innerText = `共${allCharList.length}个角色`;
@@ -747,12 +666,10 @@
                     item.jaName.toLowerCase().includes(kw) ||
                     item.enName.toLowerCase().includes(kw);
             });
-
             list.sort((a, b) => {
                 let valA, valB;
                 switch (sortField) {
-                    case "imgKey":
-                        valA = a.imgKey; valB = b.imgKey; break;
+                    case "imgKey": valA = a.imgKey; valB = b.imgKey; break;
                     case "name":
                         valA = currentLang === "zh" ? a.zhName : currentLang === "ja" ? a.jaName : a.enName;
                         valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
@@ -768,13 +685,10 @@
                     case "bmi":
                         const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
                         const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
-                        if (isMultiBmiA) valA = -99999;
-                        else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-                        if (isMultiBmiB) valB = -99999;
-                        else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        if (isMultiBmiA) valA = -99999; else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        if (isMultiBmiB) valB = -99999; else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
                         break;
-                    case "birthday":
-                        valA = a.birthdayMD; valB = b.birthdayMD; break;
+                    case "birthday": valA = a.birthdayMD; valB = b.birthdayMD; break;
                 }
                 if (typeof valA === "number" && typeof valB === "number") {
                     return sortAsc ? valA - valB : valB - valA;
@@ -835,17 +749,13 @@
             allCharList.forEach(c => {
                 const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
                 const birthMD = c.birthdayMD;
-                if (birthMD === todayMD) {
-                    todayList.push({ name, birthMD });
-                } else if (birthdayIn7Days(birthMD)) {
-                    weekList.push({ name, birthMD });
-                }
+                if (birthMD === todayMD) todayList.push({ name, birthMD });
+                else if (birthdayIn7Days(birthMD)) weekList.push({ name, birthMD });
             });
             if (!todayList.length && !weekList.length) {
                 birthdayBanner.classList.remove("show");
                 return;
             }
-            
             if (weekList.length) {
                 weekList.sort((a, b) => {
                     const [am, ad] = a.birthMD.split("-").map(Number);
@@ -859,7 +769,6 @@
                     return dateA - dateB;
                 });
             }
-
             birthdayBanner.classList.add("show");
             let html = "";
             if (todayList.length) {
@@ -899,24 +808,16 @@
             renderBirthdayBanner();
         }
 
-        $$(".lang-group button").forEach(btn => {
-            btn.onclick = () => updateLang(btn.dataset.lang);
-        });
+        $$(".lang-group button").forEach(btn => btn.onclick = () => updateLang(btn.dataset.lang));
         $$("thead th").forEach(th => {
             th.onclick = () => {
                 const field = th.dataset.sort;
                 if (sortField === field) sortAsc = !sortAsc;
-                else {
-                    sortField = field;
-                    sortAsc = true;
-                }
+                else { sortField = field; sortAsc = true; }
                 renderTable();
             };
         });
-        searchInput.oninput = e => {
-            searchText = e.target.value;
-            renderTable();
-        };
+        searchInput.oninput = e => { searchText = e.target.value; renderTable(); };
 
         loadJsonData();
     </script>
