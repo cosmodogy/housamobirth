@@ -225,7 +225,6 @@
             animation: bannerSlideIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
 
-        /* 收起状态：内容隐藏，padding减小 */
         .banner-box.collapsed {
             padding: 10px 24px;
         }
@@ -247,7 +246,6 @@
             }
         }
 
-        /* 横幅头部：标题 + 按钮 flex 布局 */
         .banner-header {
             display: flex;
             justify-content: space-between;
@@ -276,7 +274,6 @@
             flex: 1;
         }
 
-        /* 切换按钮 */
         .banner-toggle-btn {
             flex-shrink: 0;
             background: rgba(255, 255, 255, 0.6);
@@ -528,7 +525,6 @@
                 align-items: center;
                 padding: 10px 12px;
             }
-
             .lang-group {
                 grid-column: 1;
                 grid-row: 1;
@@ -542,7 +538,6 @@
                 padding: 5px 10px;
                 white-space: nowrap;
             }
-
             .search-box {
                 grid-column: 1 / -1;
                 grid-row: 2;
@@ -553,12 +548,10 @@
                 margin: 0;
                 box-sizing: border-box;
             }
-
             .lang-group button {
                 padding: 5px 10px;
                 font-size: 13px;
             }
-
             .table-wrapper {
                 overflow-x: hidden;
             }
@@ -566,7 +559,6 @@
                 table-layout: fixed;
                 width: 100%;
             }
-
             th,
             td {
                 padding: 10px 4px;
@@ -575,7 +567,6 @@
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
-
             th {
                 font-size: 14px;
                 white-space: normal;
@@ -797,7 +788,7 @@
         let sortField = "name";
         let sortAsc = true;
         let searchText = "";
-        let bannerExpanded = true; // 横幅展开状态，默认展开
+        let bannerExpanded = true;
 
         const $ = s => document.querySelector(s);
         const $$ = s => document.querySelectorAll(s);
@@ -817,6 +808,21 @@
             };
             const field = map[type][lang];
             return item[field] ?? item[`${type}Raw`];
+        }
+
+        /**
+         * 从原始字符串中提取所有数字，返回最大的那个。
+         * 如果没有数字，返回 -Infinity，排序时会被排到最后。
+         * 支持整数和小数（如 180、185.5）。
+         */
+        function extractMaxNumber(rawStr) {
+            if (!rawStr || typeof rawStr !== "string") return -Infinity;
+            // 匹配所有数字（整数或小数）
+            const numbers = rawStr.match(/\d+(?:\.\d+)?/g);
+            if (!numbers || numbers.length === 0) return -Infinity;
+            // 转换为数字并返回最大值
+            const parsed = numbers.map(Number);
+            return Math.max(...parsed);
         }
 
         async function loadJsonData() {
@@ -860,6 +866,7 @@
                     item.jaName.toLowerCase().includes(kw) ||
                     item.enName.toLowerCase().includes(kw);
             });
+
             list.sort((a, b) => {
                 let valA, valB;
                 switch (sortField) {
@@ -872,29 +879,39 @@
                         valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
                         break;
                     case "height":
-                        valA = parseFloat(a.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                        valB = parseFloat(b.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        // 提取最大数字进行排序，没有数字的排到最后
+                        valA = extractMaxNumber(a.heightRaw);
+                        valB = extractMaxNumber(b.heightRaw);
                         break;
                     case "weight":
-                        valA = parseFloat(a.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                        valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        // 提取最大数字进行排序，没有数字的排到最后
+                        valA = extractMaxNumber(a.weightRaw);
+                        valB = extractMaxNumber(b.weightRaw);
                         break;
                     case "bmi":
-                        const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
-                        const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
-                        if (isMultiBmiA) valA = -99999;
-                        else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-                        if (isMultiBmiB) valB = -99999;
-                        else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        // BMI 也使用同样的逻辑：多值取最大值，无数字排到最后
+                        valA = extractMaxNumber(a.bmiRaw);
+                        valB = extractMaxNumber(b.bmiRaw);
                         break;
                     case "birthday":
                         valA = a.birthdayMD;
                         valB = b.birthdayMD;
                         break;
+                    default:
+                        valA = a.zhName;
+                        valB = b.zhName;
                 }
+
+                // 数字比较
                 if (typeof valA === "number" && typeof valB === "number") {
+                    // 如果两个都是 -Infinity，保持原顺序（不交换）
+                    if (valA === -Infinity && valB === -Infinity) return 0;
+                    // 如果其中一个无数据，无数据的排到后面
+                    if (valA === -Infinity) return 1;
+                    if (valB === -Infinity) return -1;
                     return sortAsc ? valA - valB : valB - valA;
                 } else {
+                    // 字符串比较
                     const sa = String(valA).toLowerCase();
                     const sb = String(valB).toLowerCase();
                     if (sa < sb) return sortAsc ? -1 : 1;
@@ -960,16 +977,12 @@
                 else if (birthdayIn7Days(birthMD)) weekList.push({ name, birthMD });
             });
 
-            // 判断是否有寿星数据
             const hasData = todayList.length > 0 || weekList.length > 0;
-
-            // 如果没有数据，隐藏横幅
             if (!hasData) {
                 birthdayBanner.classList.remove("show", "collapsed");
                 return;
             }
 
-            // 排序
             if (weekList.length) {
                 weekList.sort((a, b) => {
                     const [am, ad] = a.birthMD.split("-").map(Number);
@@ -984,7 +997,6 @@
                 });
             }
 
-            // 构建内容
             let html = "";
             if (todayList.length) {
                 const todayItems = todayList.map(item =>
@@ -1000,7 +1012,6 @@
             }
             bannerContent.innerHTML = html;
 
-            // 根据展开状态控制显示
             if (bannerExpanded) {
                 birthdayBanner.classList.remove("collapsed");
                 birthdayBanner.classList.add("show");
@@ -1011,7 +1022,6 @@
             }
         }
 
-        // 切换横幅展开/收起
         function toggleBanner() {
             const t = i18n[currentLang];
             bannerExpanded = !bannerExpanded;
@@ -1022,7 +1032,6 @@
                 birthdayBanner.classList.add("collapsed");
                 bannerToggleBtn.textContent = t.btnExpand;
             }
-            // 重新调整显示（确保show类存在）
             birthdayBanner.classList.add("show");
         }
 
@@ -1031,10 +1040,8 @@
             const t = i18n[lang];
             document.title = `${t.gameTitle} - Character List`;
             searchInput.placeholder = t.searchPlaceholder;
-            // 更新标题（保留🎉图标）
             const titleSpan = bannerTitle.querySelector(".banner-title-text");
             if (titleSpan) titleSpan.textContent = t.bannerTitle;
-            // 更新按钮文字
             if (bannerExpanded) {
                 bannerToggleBtn.textContent = t.btnCollapse;
             } else {
@@ -1072,7 +1079,6 @@
         searchInput.oninput = e => { searchText = e.target.value;
             renderTable(); };
 
-        // 横幅切换按钮事件
         bannerToggleBtn.addEventListener("click", toggleBanner);
 
         // 初始化
