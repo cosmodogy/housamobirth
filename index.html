@@ -207,7 +207,7 @@ const i18n = {
         colHeight: "Height(CM)",
         colWeight: "Weight(KG)",
         colBMI: "BMI",
-        colBirthday: "Translight Day/Birthday",
+        colBirthday: "Summon Date/Birthday",
         secret: "Secret",
         noData: "No data",
         ngText: "Not disclosed due to agency NG",
@@ -235,17 +235,26 @@ const countText = $("#countText");
 const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
 
-// 加载外部json文件
+let allCharList = [];
+const countText = document.getElementById("countText"); // 匹配你页面元素
+
 async function loadJsonData() {
     try {
         const res = await fetch("characters.json");
+        // 关键：404/500会抛出错误进入catch
+        if (!res.ok) {
+            const rawText = await res.text();
+            throw new Error(`HTTP${res.status}，服务器返回内容：${rawText.slice(0,300)}`);
+        }
         allCharList = await res.json();
         renderAll();
     } catch (err) {
-        countText.innerText = "加载characters.json失败，请确认文件存在";
-        console.error("JSON读取失败", err);
+        countText.innerText = "加载失败：" + err.message;
+        console.error("完整错误详情", err);
     }
 }
+loadJsonData();
+
 
 function transNote(rawStr) {
     const t = i18n[currentLang];
