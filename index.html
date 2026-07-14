@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东京放课后召唤师 - 角色图鉴</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #f7f9fc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .lang-group button {
+            padding: 6px 14px;
+            border: 1px solid #cad3e0;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lang-group button.active {
+            background: #407bff;
+            color: white;
+            border-color: #407bff;
+        }
+        .search-box {
+            padding: 8px 12px;
+            width: 280px;
+            border: 1px solid #cad3e0;
+            border-radius: 6px;
+        }
+        .count-text {
+            color: #555;
+        }
+        .banner-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .banner-box.show {
+            display: block;
+        }
+        .banner-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        th, td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #f0f4fa;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+        th:hover {
+            background: #e4ecf8;
+        }
+        th .sort-mark {
+            margin-left: 6px;
+            color: #407bff;
+        }
+        tr:hover td {
+            background: #f7faff;
+        }
+        .avatar-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e0e6ef;
+        }
+        @media (max-width: 900px) {
+            th, td {
+                padding: 8px 4px;
+                font-size: 14px;
+            }
+            .avatar-img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+        <div class="lang-group">
+            <button data-lang="zh" class="active">简体中文</button>
+            <button data-lang="ja">日本語</button>
+            <button data-lang="en">English</button>
+        </div>
+        <input type="text" class="search-box" id="searchInput" placeholder="搜索角色名...">
+        <div class="count-text" id="countText">加载中...</div>
+    </div>
+
+    <div class="banner-box" id="birthdayBanner">
+        <div class="banner-title" id="bannerTitle">寿星提醒</div>
+        <div class="banner-list" id="bannerContent"></div>
+    </div>
+
+    <table id="charTable">
+        <thead>
+            <tr>
+                <th data-sort="imgKey">头像 <span class="sort-mark"></span></th>
+                <th data-sort="name">角色名 <span class="sort-mark"></span></th>
+                <th data-sort="height">身高(CM) <span class="sort-mark"></span></th>
+                <th data-sort="weight">体重(KG) <span class="sort-mark"></span></th>
+                <th data-sort="bmi">BMI <span class="sort-mark"></span></th>
+                <th data-sort="birthday">转光日/生日 <span class="sort-mark"></span></th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+const i18n = {
+    zh: {
+        gameTitle: "东京放课后召唤师",
+        searchPlaceholder: "搜索角色名...",
+        countPrefix: "共 ",
+        countSuffix: " 个角色",
+        bannerToday: "🎂 今日寿星：",
+        bannerWeek: "✨ 未来一周寿星：",
+        colAvatar: "头像",
+        colName: "角色名",
+        colHeight: "身高(CM)",
+        colWeight: "体重(KG)",
+        colBMI: "BMI",
+        colBirthday: "转光日/生日",
+        secret: "保密",
+        noData: "无数据",
+        ngText: "事务所NG不予公开",
+        twoSize: "两种体型",
+        noArmor: "去除铠甲后",
+        noTail: "不含尾巴",
+        withProsthetic: "包含义肢",
+        onlyBody: "仅肉体部分",
+        noMachine: "不含机械部件",
+        dragonChange: "龙种体型可变"
+    },
+    ja: {
+        gameTitle: "東京放課後サモナーズ",
+        searchPlaceholder: "キャラ名で検索",
+        countPrefix: "合計 ",
+        countSuffix: " キャラクター",
+        bannerToday: "🎂 今日誕生日キャラ：",
+        bannerWeek: "✨ 今後1週間誕生日：",
+        colAvatar: "アイコン",
+        colName: "キャラ名",
+        colHeight: "身長(CM)",
+        colWeight: "体重(KG)",
+        colBMI: "BMI",
+        colBirthday: "転光日/誕生日",
+        secret: "非公開",
+        noData: "データなし",
+        ngText: "事務所NGにより非公表",
+        twoSize: "二種類の体格",
+        noArmor: "鎧を除く",
+        noTail: "尻尾抜き",
+        withProsthetic: "義肢重量含む",
+        onlyBody: "生体部分のみ",
+        noMachine: "機械部品を除く",
+        dragonChange: "竜種は体格可変"
+    },
+    en: {
+        gameTitle: "Tokyo Afterschool Summoners",
+        searchPlaceholder: "Search character name",
+        countPrefix: "Total ",
+        countSuffix: " characters",
+        bannerToday: "🎂 Today's Birthday Characters: ",
+        bannerWeek: "✨ Birthdays in next 7 days: ",
+        colAvatar: "Avatar",
+        colName: "Character Name",
+        colHeight: "Height(CM)",
+        colWeight: "Weight(KG)",
+        colBMI: "BMI",
+        colBirthday: "Translight Day/Birthday",
+        secret: "Secret",
+        noData: "No data",
+        ngText: "Not disclosed due to agency NG",
+        twoSize: "Two body types",
+        noArmor: "Without armor",
+        noTail: "Excluding tail",
+        withProsthetic: "Including prosthetic weight",
+        onlyBody: "Biological part only",
+        noMachine: "Excluding mechanical parts",
+        dragonChange: "Dragonkin variable physique"
+    }
+};
+
+let allCharList = [];
+let currentLang = "zh";
+let sortField = "name";
+let sortAsc = true;
+let searchText = "";
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const tableBody = $("#tableBody");
+const searchInput = $("#searchInput");
+const countText = $("#countText");
+const birthdayBanner = $("#birthdayBanner");
+const bannerContent = $("#bannerContent");
+
+// 加载外部json文件
+async function loadJsonData() {
+    try {
+        const res = await fetch("characters.json");
+        allCharList = await res.json();
+        renderAll();
+    } catch (err) {
+        countText.innerText = "加载characters.json失败，请确认文件存在";
+        console.error("JSON读取失败", err);
+    }
+}
+
+function transNote(rawStr) {
+    const t = i18n[currentLang];
+    if (!rawStr) return "";
+    if (rawStr.includes("事务所NG")) return t.ngText;
+    if (rawStr.includes("两种体型")) return t.twoSize;
+    if (rawStr.includes("去除铠甲")) return t.noArmor;
+    if (rawStr.includes("不含尾巴")) return t.noTail;
+    if (rawStr.includes("包含义肢")) return t.withProsthetic;
+    if (rawStr.includes("仅肉体")) return t.onlyBody;
+    if (rawStr.includes("不含机械")) return t.noMachine;
+    if (rawStr.includes("龙种体型可变")) return t.dragonChange;
+    if (rawStr.includes("保密")) return t.secret;
+    return rawStr;
+}
+
+function formatDisplay(raw, note) {
+    const t = i18n[currentLang];
+    let str = String(raw);
+    if (note) str += ` (${transNote(note)})`;
+    if (str === "/" || str === "" || str.includes("非公表")) return t.noData;
+    return str;
+}
+
+function getTodayMD() {
+    const d = new Date();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${m}-${day}`;
+}
+
+function birthdayIn7Days(birthMD) {
+    const today = new Date();
+    const [bm, bd] = birthMD.split("-").map(Number);
+    const target = new Date();
+    target.setMonth(bm - 1, bd);
+    const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+    return diff >= 0 && diff <= 7;
+}
+
+function getFilteredSorted() {
+    const t = i18n[currentLang];
+    let list = allCharList.filter(item => {
+        const kw = searchText.toLowerCase();
+        return item.zhName.toLowerCase().includes(kw)
+            || item.jaName.toLowerCase().includes(kw)
+            || item.enName.toLowerCase().includes(kw);
+    });
+
+    list.sort((a, b) => {
+        let valA, valB;
+        switch (sortField) {
+            case "imgKey":
+                valA = a.imgKey; valB = b.imgKey; break;
+            case "name":
+                valA = currentLang === "zh" ? a.zhName : currentLang === "ja" ? a.jaName : a.enName;
+                valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
+                break;
+            case "height":
+                valA = parseFloat(a.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                valB = parseFloat(b.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                break;
+            case "weight":
+                valA = parseFloat(a.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                break;
+            case "bmi":
+                valA = a.bmiNum ?? -9999;
+                valB = b.bmiNum ?? -9999;
+                break;
+            case "birthday":
+                valA = a.birthdayMD; valB = b.birthdayMD; break;
+        }
+        if (typeof valA === "number" && typeof valB === "number") {
+            return sortAsc ? valA - valB : valB - valA;
+        } else {
+            const sa = String(valA).toLowerCase();
+            const sb = String(valB).toLowerCase();
+            if (sa < sb) return sortAsc ? -1 : 1;
+            if (sa > sb) return sortAsc ? 1 : -1;
+            return 0;
+        }
+    });
+    return list;
+}
+
+function renderTable() {
+    const t = i18n[currentLang];
+    const data = getFilteredSorted();
+    countText.innerText = `${t.countPrefix}${data.length}${t.countSuffix}`;
+    tableBody.innerHTML = "";
+    data.forEach(char => {
+        const tr = document.createElement("tr");
+        const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
+        const hShow = formatDisplay(char.heightRaw, char.noteHeight);
+        const wShow = formatDisplay(char.weightRaw, char.noteWeight);
+        const bmiShow = char.bmiNum !== null ? char.bmiNum.toFixed(2) : t.noData;
+        const bdayShow = char.birthdayStr;
+        const avatarSrc = `avatar/${char.imgKey}.png`;
+        tr.innerHTML = `
+            <td><img class="avatar-img" src="${avatarSrc}" alt="${nameShow}"></td>
+            <td>${nameShow}</td>
+            <td>${hShow}</td>
+            <td>${wShow}</td>
+            <td>${bmiShow}</td>
+            <td>${bdayShow}</td>
+        `;
+        tableBody.appendChild(tr);
+    });
+    $$("thead th").forEach(th => {
+        const mark = th.querySelector(".sort-mark");
+        mark.innerText = th.dataset.sort === sortField ? (sortAsc ? "↑" : "↓") : "";
+    });
+}
+
+function renderBirthdayBanner() {
+    const t = i18n[currentLang];
+    const todayMD = getTodayMD();
+    let todayList = [], weekList = [];
+    allCharList.forEach(c => {
+        const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
+        if (c.birthdayMD === todayMD) todayList.push(name);
+        else if (birthdayIn7Days(c.birthdayMD)) weekList.push(name);
+    });
+    if (!todayList.length && !weekList.length) {
+        birthdayBanner.classList.remove("show");
+        return;
+    }
+    birthdayBanner.classList.add("show");
+    let html = "";
+    if (todayList.length) html += `<div>${t.bannerToday}${todayList.join("、")}</div>`;
+    if (weekList.length) html += `<div>${t.bannerWeek}${weekList.join("、")}</div>`;
+    bannerContent.innerHTML = html;
+}
+
+function updateLang(lang) {
+    currentLang = lang;
+    const t = i18n[lang];
+    document.title = `${t.gameTitle} - Character List`;
+    searchInput.placeholder = t.searchPlaceholder;
+    const ths = $$("thead th");
+    ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
+    ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
+    ths[2].innerHTML = `${t.colHeight} <span class="sort-mark"></span>`;
+    ths[3].innerHTML = `${t.colWeight} <span class="sort-mark"></span>`;
+    ths[4].innerHTML = `BMI <span class="sort-mark"></span>`;
+    ths[5].innerHTML = `${t.colBirthday} <span class="sort-mark"></span>`;
+    $$(".lang-group button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+    renderAll();
+}
+
+function renderAll() {
+    renderTable();
+    renderBirthdayBanner();
+}
+
+// 绑定事件
+$$(".lang-group button").forEach(btn => {
+    btn.onclick = () => updateLang(btn.dataset.lang);
+});
+$$("thead th").forEach(th => {
+    th.onclick = () => {
+        const field = th.dataset.sort;
+        if (sortField === field) sortAsc = !sortAsc;
+        else {
+            sortField = field;
+            sortAsc = true;
+        }
+        renderTable();
+    };
+});
+searchInput.oninput = e => {
+    searchText = e.target.value;
+    renderTable();
+};
+
+// 初始化加载外部JSON
+loadJsonData();
+</script>
+</body>
+</html>
