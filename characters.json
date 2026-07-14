@@ -5857,8 +5857,8 @@
         "jaBirthday": "3月16日",
         "enBirthday": "March 16th",
         "birthdayMD": "03-16",
-        "bmiRaw": "189（成年状态）/16.53（幼年状态）",
-        "bmiNum": 189
+        "bmiRaw": "189（成年状态）/16.5（幼年状态）",
+        "bmiNum": null
 
 
     },
