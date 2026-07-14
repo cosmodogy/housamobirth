@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>东京放课后召唤师 - 角色图鉴</title>
     <style>
         /* MiSans 全字重字体定义 */
@@ -265,14 +265,14 @@
             padding-left: 4px;
         }
 
-        /* 调整后的寿星名字 —— 适度加粗，不再刺眼 */
+        /* 寿星名字 - 适度加粗，不刺眼 */
         .bday-name {
             font-weight: 650;
             color: var(--banner-name);
             letter-spacing: 0.02em;
         }
 
-        /* 日期 —— 提升字重到Regular，颜色加深一点，削弱对比 */
+        /* 日期 - 常规字重，颜色柔和 */
         .bday-date {
             font-weight: 400;
             color: #7a6a40;
@@ -292,12 +292,18 @@
             overflow: hidden;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-light);
+            /* 移动端可以横向滚动 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             background: transparent;
+            /* 保证表格至少有一定的宽度，便于小屏滚动 */
+            min-width: 680px;
+            table-layout: auto;
         }
 
         th,
@@ -308,6 +314,8 @@
             font-weight: 400;
             color: var(--text-primary);
             letter-spacing: 0.01em;
+            vertical-align: middle;
+            /* 确保内容垂直居中 */
         }
 
         th {
@@ -324,6 +332,9 @@
             z-index: 1;
             transition: background var(--transition);
             border-bottom: 2px solid #e2e9f3;
+            /* 关键：表头文字不换行，保证所有列高度一致 */
+            white-space: nowrap;
+            vertical-align: middle;
         }
 
         th:hover {
@@ -404,68 +415,94 @@
             transform: scale(1.04);
         }
 
+        /* ========== 移动端适配 ========== */
         @media (max-width: 900px) {
             body {
                 padding: 12px 8px 24px;
             }
+
             .top-bar {
                 padding: 10px 14px;
                 gap: 10px;
                 border-radius: var(--radius-sm);
             }
+
             .lang-group button {
                 padding: 6px 10px;
                 font-size: 12px;
                 border-radius: 6px;
             }
+
             .lang-group button.active {
                 border-radius: 5px;
             }
+
             .search-box {
                 width: 100%;
                 max-width: 260px;
                 font-size: 13px;
             }
+
             .search-box:focus {
                 width: 100%;
                 max-width: 280px;
             }
+
             .count-text {
                 font-size: 12px;
                 padding: 5px 10px;
             }
+
+            /* 表格在移动端的微调 */
+            table {
+                min-width: 620px;
+                /* 稍微缩小最小宽度，配合更小的字体 */
+            }
+
             th,
             td {
-                padding: 10px 5px;
-                font-size: 13px;
+                padding: 10px 6px;
+                font-size: 12px;
             }
+
             th {
                 font-size: 11px;
                 letter-spacing: 0.02em;
+                white-space: nowrap;
+                /* 继续保持不换行，避免高度参差 */
             }
+
             .avatar-img {
                 width: 56px;
                 height: 56px;
                 border-radius: 8px;
                 border-width: 1.5px;
             }
+
             tr:hover .avatar-img {
                 transform: scale(1.06);
             }
+
             .banner-box {
                 padding: 12px 14px;
                 border-left-width: 4px;
                 border-radius: var(--radius-sm);
             }
+
             .banner-title {
                 font-size: 13px;
             }
+
             .banner-list {
                 font-size: 12px;
                 line-height: 1.7;
             }
+
             .table-wrapper {
                 border-radius: var(--radius-sm);
+                /* 确保横向滚动条可见且易于滑动 */
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
             }
         }
 
@@ -475,58 +512,85 @@
                 align-items: stretch;
                 gap: 8px;
             }
+
             .lang-group {
                 justify-content: center;
                 flex-wrap: wrap;
             }
+
             .search-box {
                 max-width: 100%;
                 width: 100%;
             }
+
             .search-box:focus {
                 max-width: 100%;
                 width: 100%;
             }
+
             .count-text {
                 text-align: center;
             }
+
+            table {
+                min-width: 550px;
+                /* 更小的屏幕下表格最小宽度 */
+            }
+
+            th,
+            td {
+                padding: 8px 4px;
+                font-size: 10px;
+            }
+
+            th {
+                font-size: 10px;
+                white-space: nowrap;
+            }
+
             .avatar-img {
                 width: 44px;
                 height: 44px;
                 border-radius: 6px;
             }
-            th,
-            td {
-                padding: 8px 3px;
-                font-size: 11px;
-            }
-            th {
-                font-size: 10px;
-            }
         }
 
+        /* 自定义滚动条，让横滑更美观 */
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f0f2f5;
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #a0afc0;
+        }
+
+        /* 全局滚动条保持原样 */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #d1d9e4;
             border-radius: 3px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #bcc6d4;
-        }
-        @media (max-width: 700px) {
-            .table-wrapper {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            table {
-                min-width: 550px;
-            }
         }
     </style>
 </head>
@@ -782,6 +846,22 @@
                 birthdayBanner.classList.remove("show");
                 return;
             }
+            
+            // 对 weekList 按日期先后进行排序
+            if (weekList.length) {
+                weekList.sort((a, b) => {
+                    const [am, ad] = a.birthMD.split("-").map(Number);
+                    const [bm, bd] = b.birthMD.split("-").map(Number);
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    let dateA = new Date(year, am - 1, ad);
+                    let dateB = new Date(year, bm - 1, bd);
+                    if (dateA < today) dateA.setFullYear(year + 1);
+                    if (dateB < today) dateB.setFullYear(year + 1);
+                    return dateA - dateB;
+                });
+            }
+
             birthdayBanner.classList.add("show");
             let html = "";
             if (todayList.length) {
