@@ -280,11 +280,14 @@ function getFilteredSorted() {
                 valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
                 break;
             case "bmi":
-    // 包含/代表多BMI，不参与正常数字排序，赋值极小值
-    if (a.bmiRaw.includes("/")) valA = -99999;
+    // 包含 / 或 - 代表多区间/多BMI，不参与正常数字排序，统一放末尾
+    const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
+    const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
+
+    if (isMultiBmiA) valA = -99999;
     else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
 
-    if (b.bmiRaw.includes("/")) valB = -99999;
+    if (isMultiBmiB) valB = -99999;
     else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
     break;
             case "birthday":
