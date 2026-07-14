@@ -212,8 +212,9 @@ const i18n = {
         searchPlaceholder: "キャラ名で検索",
         countPrefix: "合計 ",
         countSuffix: " キャラクター",
-        bannerToday: "🎂 今日誕生日キャラ：",
-        bannerWeek: "✨ 今後1週間誕生日：",
+        bannerTitle: "転光日/誕生日お知らせ"
+        bannerToday: "🎂 今日転光日/誕生日キャラ：",
+        bannerWeek: "✨ 今後1週間転光日/誕生日：",
         colAvatar: "アイコン",
         colName: "キャラ名",
         colHeight: "身長(CM)",
@@ -227,8 +228,9 @@ const i18n = {
         searchPlaceholder: "Search character name",
         countPrefix: "Total ",
         countSuffix: " characters",
-        bannerToday: "🎂 Today's Birthday Characters: ",
-        bannerWeek: "✨ Birthdays in next 7 days: ",
+        bannerTitle: "Summon Date/Birthday Reminder",
+        bannerToday: "🎂 Today's Summon Date/Birthday Characters: ",
+        bannerWeek: "✨ Summon Date/Birthdays in next 7 days: ",
         colAvatar: "Avatar",
         colName: "Character Name",
         colHeight: "Height(CM)",
@@ -428,6 +430,7 @@ function updateLang(lang) {
     const t = i18n[lang];
     document.title = `${t.gameTitle} - Character List`;
     searchInput.placeholder = t.searchPlaceholder;
+    $("#bannerTitle").innerText = t.bannerTitle;
     const ths = $$("thead th");
     ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
     ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
