@@ -265,14 +265,12 @@
             padding-left: 4px;
         }
 
-        /* 寿星名字 - 适度加粗，不刺眼 */
         .bday-name {
             font-weight: 650;
             color: var(--banner-name);
             letter-spacing: 0.02em;
         }
 
-        /* 日期 - 常规字重，颜色柔和 */
         .bday-date {
             font-weight: 400;
             color: #7a6a40;
@@ -292,7 +290,6 @@
             overflow: hidden;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-light);
-            /* 在宽屏下允许滚动，手机端将通过后续媒体查询强制不滚动 */
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -411,7 +408,7 @@
             transform: scale(1.04);
         }
 
-        /* ========== 平板设备 ========== */
+        /* 平板设备 */
         @media (max-width: 900px) {
             body {
                 padding: 12px 8px 24px;
@@ -486,15 +483,53 @@
             }
         }
 
-        /* ========== 手机端：强制一屏显示所有列，无横向滚动 ========== */
+        /* ========== 手机端优化：两行布局，表格一屏显示 ========== */
         @media (max-width: 600px) {
+            .top-bar {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 8px;
+                align-items: center;
+                padding: 10px 12px;
+            }
+
+            .lang-group {
+                grid-column: 1;
+                grid-row: 1;
+                justify-self: start;
+            }
+
+            .count-text {
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: end;
+                white-space: nowrap;
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+
+            .search-box {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                width: 100%;
+                max-width: 100%;
+                font-size: 13px;
+                margin: 0;
+            }
+
+            .lang-group button {
+                padding: 5px 8px;
+                font-size: 12px;
+            }
+
             .table-wrapper {
-                overflow-x: visible; /* 禁止滚动条 */
+                overflow-x: visible;
             }
 
             table {
                 min-width: 100%;
-                table-layout: fixed; /* 固定列宽，强制等分 */
+                table-layout: fixed;
             }
 
             th,
@@ -505,10 +540,9 @@
 
             th {
                 font-size: 10px;
-                white-space: nowrap; /* 表头不换行，保持高度一致 */
+                white-space: nowrap;
             }
 
-            /* 让角色名列稍微多一点空间 */
             th:nth-child(2),
             td:nth-child(2) {
                 padding-left: 2px;
@@ -526,13 +560,11 @@
                 font-size: 9px;
             }
 
-            /* 生日列可能较长，进一步缩小字体 */
             td:nth-child(6) {
                 font-size: 9px;
             }
         }
 
-        /* 极小屏幕（如320px宽度）再压缩一点 */
         @media (max-width: 380px) {
             th,
             td {
@@ -553,16 +585,8 @@
             td:nth-child(6) {
                 font-size: 8px;
             }
-
-            .bday-name {
-                font-size: 11px;
-            }
-            .bday-date {
-                font-size: 10px;
-            }
         }
 
-        /* 滚动条样式保留 */
         .table-wrapper::-webkit-scrollbar {
             height: 6px;
         }
