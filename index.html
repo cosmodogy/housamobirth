@@ -221,6 +221,8 @@ const i18n = {
     }
 };
 
+    
+
 let allCharList = [];
 let currentLang = "zh";
 let sortField = "name";
@@ -235,9 +237,6 @@ const countText = $("#countText");
 const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
 
-let allCharList = [];
-// 绑定你页面右侧显示文字的元素（显示加载失败文字）
-const countText = document.querySelector("div:contains('加载中...')");
 
 async function loadJsonData() {
     try {
@@ -260,6 +259,8 @@ async function loadJsonData() {
 // 页面加载完成执行
 window.onload = loadJsonData;
 
+
+    
 
 function transNote(rawStr) {
     const t = i18n[currentLang];
