@@ -280,9 +280,13 @@ function getFilteredSorted() {
                 valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
                 break;
             case "bmi":
-                valA = a.bmiNum ?? -9999;
-                valB = b.bmiNum ?? -9999;
-                break;
+    // 包含/代表多BMI，不参与正常数字排序，赋值极小值
+    if (a.bmiRaw.includes("/")) valA = -99999;
+    else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+
+    if (b.bmiRaw.includes("/")) valB = -99999;
+    else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+    break;
             case "birthday":
                 valA = a.birthdayMD; valB = b.birthdayMD; break;
         }
@@ -313,7 +317,13 @@ function renderTable() {
         // 直接使用三语文本，不再拼接note注释
         const hShow = heightText === "/" || heightText === "" ? t.noData : heightText;
         const wShow = weightText === "/" || weightText === "" ? t.noData : weightText;
-        const bmiShow = char.bmiNum !== null ? char.bmiNum.toFixed(2) : t.noData;
+        // 优先展示bmiRaw完整文本（支持多组BMI），空/仅/时显示无数据
+let bmiRawText = char.bmiRaw?.trim() ?? "";
+if (bmiRawText === "" || bmiRawText === "/") {
+    bmiShow = t.noData;
+} else {
+    bmiShow = bmiRawText;
+}
         const bdayShow = birthdayText;
         const avatarSrc = `avatar/${char.imgKey}.png`;
         tr.innerHTML = `
