@@ -236,24 +236,29 @@ const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
 
 let allCharList = [];
-const countText = document.getElementById("countText"); // 匹配你页面元素
+// 绑定你页面右侧显示文字的元素（显示加载失败文字）
+const countText = document.querySelector("div:contains('加载中...')");
 
 async function loadJsonData() {
     try {
-        const res = await fetch("characters.json");
-        // 关键：404/500会抛出错误进入catch
+        countText.innerText = "正在请求JSON文件";
+        const res = await fetch("./characters.json");
+        // 捕获404/500等服务端错误
         if (!res.ok) {
-            const rawText = await res.text();
-            throw new Error(`HTTP${res.status}，服务器返回内容：${rawText.slice(0,300)}`);
+            throw new Error(`文件访问失败 状态码:${res.status}`);
         }
+        countText.innerText = "正在解析数据";
         allCharList = await res.json();
+        countText.innerText = `共${allCharList.length}个角色`;
         renderAll();
     } catch (err) {
+        // 报错直接展示在页面，不用F12
         countText.innerText = "加载失败：" + err.message;
-        console.error("完整错误详情", err);
+        console.error("完整错误日志", err);
     }
 }
-loadJsonData();
+// 页面加载完成执行
+window.onload = loadJsonData;
 
 
 function transNote(rawStr) {
