@@ -5,11 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>东京放课后召唤师 - 角色图鉴</title>
     <style>
+        /* ========== 新增MiSans字体定义，匹配ttf文件夹内全部字重 ========== */
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Light.ttf") format("truetype");
+            font-weight: 300;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Regular.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Medium.ttf") format("truetype");
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Semibold.ttf") format("truetype");
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Demibold.ttf") format("truetype");
+            font-weight: 650;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Bold.ttf") format("truetype");
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "MiSans";
+            src: url("ttf/MiSans-Heavy.ttf") format("truetype");
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        /* 全局替换字体，优先MiSans，兜底系统无衬线字体 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: "MiSans", system-ui, -apple-system, sans-serif;
         }
         body {
             background: #f7f9fc;
@@ -61,7 +106,7 @@
             display: block;
         }
         .banner-title {
-            font-weight: bold;
+            font-weight: bold; /* 自动使用 MiSans-Bold 700字重 */
             color: #856404;
             margin-bottom: 4px;
         }
@@ -80,7 +125,7 @@
         }
         th {
             background: #f0f4fa;
-            font-weight: 600;
+            font-weight: 600; /* 自动使用 MiSans-Semibold 600字重 */
             cursor: pointer;
             user-select: none;
         }
