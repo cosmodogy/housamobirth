@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>东京放课后召唤师 - 角色图鉴</title>
     <style>
-        /* ========== 新增MiSans字体定义，匹配ttf文件夹内全部字重 ========== */
+        /* MiSans 全字重字体定义 */
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Light.ttf") format("truetype");
@@ -49,7 +49,6 @@
             font-style: normal;
         }
 
-        /* 全局替换字体，优先MiSans，兜底系统无衬线字体 */
         * {
             margin: 0;
             padding: 0;
@@ -106,7 +105,7 @@
             display: block;
         }
         .banner-title {
-            font-weight: bold; /* 自动使用 MiSans-Bold 700字重 */
+            font-weight: bold;
             color: #856404;
             margin-bottom: 4px;
         }
@@ -125,7 +124,7 @@
         }
         th {
             background: #f0f4fa;
-            font-weight: 600; /* 自动使用 MiSans-Semibold 600字重 */
+            font-weight: 600;
             cursor: pointer;
             user-select: none;
         }
@@ -197,6 +196,7 @@ const i18n = {
         searchPlaceholder: "搜索角色名...",
         countPrefix: "共 ",
         countSuffix: " 个角色",
+        bannerTitle: "寿星提醒",
         bannerToday: "🎂 今日寿星：",
         bannerWeek: "✨ 未来一周寿星：",
         colAvatar: "头像",
@@ -212,9 +212,9 @@ const i18n = {
         searchPlaceholder: "キャラ名で検索",
         countPrefix: "合計 ",
         countSuffix: " キャラクター",
-        bannerTitle: "転光日/誕生日お知らせ"
-        bannerToday: "🎂 今日転光日/誕生日キャラ：",
-        bannerWeek: "✨ 今後1週間転光日/誕生日：",
+        bannerTitle: "誕生日お知らせ",
+        bannerToday: "🎂 今日誕生日キャラ：",
+        bannerWeek: "✨ 今後1週間誕生日：",
         colAvatar: "アイコン",
         colName: "キャラ名",
         colHeight: "身長(CM)",
@@ -228,9 +228,9 @@ const i18n = {
         searchPlaceholder: "Search character name",
         countPrefix: "Total ",
         countSuffix: " characters",
-        bannerTitle: "Summon Date/Birthday Reminder",
-        bannerToday: "🎂 Today's Summon Date/Birthday Characters: ",
-        bannerWeek: "✨ Summon Date/Birthdays in next 7 days: ",
+        bannerTitle: "Birthday Reminder",
+        bannerToday: "🎂 Today's Birthday Characters: ",
+        bannerWeek: "✨ Birthdays in next 7 days: ",
         colAvatar: "Avatar",
         colName: "Character Name",
         colHeight: "Height(CM)",
@@ -254,6 +254,7 @@ const searchInput = $("#searchInput");
 const countText = $("#countText");
 const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
+const bannerTitle = $("#bannerTitle");
 
 // 根据语言读取对应三语字段
 function getLocalText(item, type, lang) {
@@ -327,16 +328,13 @@ function getFilteredSorted() {
                 valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
                 break;
             case "bmi":
-    // 包含 / 或 - 代表多区间/多BMI，不参与正常数字排序，统一放末尾
-    const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
-    const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
-
-    if (isMultiBmiA) valA = -99999;
-    else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-
-    if (isMultiBmiB) valB = -99999;
-    else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-    break;
+                const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
+                const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
+                if (isMultiBmiA) valA = -99999;
+                else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                if (isMultiBmiB) valB = -99999;
+                else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                break;
             case "birthday":
                 valA = a.birthdayMD; valB = b.birthdayMD; break;
         }
@@ -364,16 +362,10 @@ function renderTable() {
         const heightText = getLocalText(char, "height", currentLang);
         const weightText = getLocalText(char, "weight", currentLang);
         const birthdayText = getLocalText(char, "birthday", currentLang);
-        // 直接使用三语文本，不再拼接note注释
         const hShow = heightText === "/" || heightText === "" ? t.noData : heightText;
         const wShow = weightText === "/" || weightText === "" ? t.noData : weightText;
-        // 优先展示bmiRaw完整文本（支持多组BMI），空/仅/时显示无数据
-let bmiRawText = char.bmiRaw?.trim() ?? "";
-if (bmiRawText === "" || bmiRawText === "/") {
-    bmiShow = t.noData;
-} else {
-    bmiShow = bmiRawText;
-}
+        let bmiRawText = char.bmiRaw?.trim() ?? "";
+        let bmiShow = bmiRawText === "" || bmiRawText === "/" ? t.noData : bmiRawText;
         const bdayShow = birthdayText;
         const avatarSrc = `avatar/${char.imgKey}.png`;
         tr.innerHTML = `
@@ -392,10 +384,10 @@ if (bmiRawText === "" || bmiRawText === "/") {
     });
 }
 
+// 修改后的横幅渲染：名字附带生日日期
 function renderBirthdayBanner() {
     const t = i18n[currentLang];
     const todayMD = getTodayMD();
-    // 改为存储 {名称,生日} 对象数组，方便带出日期
     let todayList = [], weekList = [];
     allCharList.forEach(c => {
         const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
@@ -412,12 +404,10 @@ function renderBirthdayBanner() {
     }
     birthdayBanner.classList.add("show");
     let html = "";
-    // 今日寿星：名字(月-日)
     if (todayList.length) {
         const todayText = todayList.map(item => `${item.name}(${item.birthMD})`).join("、");
         html += `<div>${t.bannerToday}${todayText}</div>`;
     }
-    // 未来一周寿星：名字(月-日)
     if (weekList.length) {
         const weekText = weekList.map(item => `${item.name}(${item.birthMD})`).join("、");
         html += `<div>${t.bannerWeek}${weekText}</div>`;
@@ -425,12 +415,15 @@ function renderBirthdayBanner() {
     bannerContent.innerHTML = html;
 }
 
+// 更新语言函数：同步修改横幅大标题
 function updateLang(lang) {
     currentLang = lang;
     const t = i18n[lang];
     document.title = `${t.gameTitle} - Character List`;
     searchInput.placeholder = t.searchPlaceholder;
-    $("#bannerTitle").innerText = t.bannerTitle;
+    // 切换横幅标题文字
+    bannerTitle.innerText = t.bannerTitle;
+
     const ths = $$("thead th");
     ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
     ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
