@@ -393,11 +393,16 @@ if (bmiRawText === "" || bmiRawText === "/") {
 function renderBirthdayBanner() {
     const t = i18n[currentLang];
     const todayMD = getTodayMD();
+    // 改为存储 {名称,生日} 对象数组，方便带出日期
     let todayList = [], weekList = [];
     allCharList.forEach(c => {
         const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
-        if (c.birthdayMD === todayMD) todayList.push(name);
-        else if (birthdayIn7Days(c.birthdayMD)) weekList.push(name);
+        const birthMD = c.birthdayMD;
+        if (birthMD === todayMD) {
+            todayList.push({ name, birthMD });
+        } else if (birthdayIn7Days(birthMD)) {
+            weekList.push({ name, birthMD });
+        }
     });
     if (!todayList.length && !weekList.length) {
         birthdayBanner.classList.remove("show");
@@ -405,8 +410,16 @@ function renderBirthdayBanner() {
     }
     birthdayBanner.classList.add("show");
     let html = "";
-    if (todayList.length) html += `<div>${t.bannerToday}${todayList.join("、")}</div>`;
-    if (weekList.length) html += `<div>${t.bannerWeek}${weekList.join("、")}</div>`;
+    // 今日寿星：名字(月-日)
+    if (todayList.length) {
+        const todayText = todayList.map(item => `${item.name}(${item.birthMD})`).join("、");
+        html += `<div>${t.bannerToday}${todayText}</div>`;
+    }
+    // 未来一周寿星：名字(月-日)
+    if (weekList.length) {
+        const weekText = weekList.map(item => `${item.name}(${item.birthMD})`).join("、");
+        html += `<div>${t.bannerWeek}${weekText}</div>`;
+    }
     bannerContent.innerHTML = html;
 }
 
