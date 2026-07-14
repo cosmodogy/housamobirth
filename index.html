@@ -221,8 +221,6 @@ const i18n = {
     }
 };
 
-    
-
 let allCharList = [];
 let currentLang = "zh";
 let sortField = "name";
@@ -237,12 +235,22 @@ const countText = $("#countText");
 const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
 
+// 新增：根据语言读取对应三语字段
+function getLocalText(item, type, lang) {
+    const map = {
+        height: { zh: "zhHeight", ja: "jaHeight", en: "enHeight" },
+        weight: { zh: "zhWeight", ja: "jaWeight", en: "enWeight" },
+        birthday: { zh: "zhBirthday", ja: "jaBirthday", en: "enBirthday" }
+    };
+    const field = map[type][lang];
+    // 容错：字段为空时回退原始纯数字Raw
+    return item[field] ?? item[`${type}Raw`];
+}
 
 async function loadJsonData() {
     try {
         countText.innerText = "正在请求JSON文件";
         const res = await fetch("./characters.json");
-        // 捕获404/500等服务端错误
         if (!res.ok) {
             throw new Error(`文件访问失败 状态码:${res.status}`);
         }
@@ -251,16 +259,11 @@ async function loadJsonData() {
         countText.innerText = `共${allCharList.length}个角色`;
         renderAll();
     } catch (err) {
-        // 报错直接展示在页面，不用F12
         countText.innerText = "加载失败：" + err.message;
         console.error("完整错误日志", err);
     }
 }
-// 页面加载完成执行
 window.onload = loadJsonData;
-
-
-    
 
 function transNote(rawStr) {
     const t = i18n[currentLang];
@@ -355,10 +358,14 @@ function renderTable() {
     data.forEach(char => {
         const tr = document.createElement("tr");
         const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
-        const hShow = formatDisplay(char.heightRaw, char.noteHeight);
-        const wShow = formatDisplay(char.weightRaw, char.noteWeight);
+        // 读取三语独立身高/体重/生日文本
+        const heightText = getLocalText(char, "height", currentLang);
+        const weightText = getLocalText(char, "weight", currentLang);
+        const birthdayText = getLocalText(char, "birthday", currentLang);
+        const hShow = formatDisplay(heightText, char.noteHeight);
+        const wShow = formatDisplay(weightText, char.noteWeight);
         const bmiShow = char.bmiNum !== null ? char.bmiNum.toFixed(2) : t.noData;
-        const bdayShow = char.birthdayStr;
+        const bdayShow = birthdayText;
         const avatarSrc = `avatar/${char.imgKey}.png`;
         tr.innerHTML = `
             <td><img class="avatar-img" src="${avatarSrc}" alt="${nameShow}"></td>
@@ -417,7 +424,7 @@ function renderAll() {
     renderBirthdayBanner();
 }
 
-// 绑定事件
+// 绑定页面事件
 $$(".lang-group button").forEach(btn => {
     btn.onclick = () => updateLang(btn.dataset.lang);
 });
@@ -437,7 +444,6 @@ searchInput.oninput = e => {
     renderTable();
 };
 
-// 初始化加载外部JSON
 loadJsonData();
 </script>
 </body>
