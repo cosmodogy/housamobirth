@@ -9,37 +9,44 @@
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Light.ttf") format("truetype");
-            font-weight: 300; font-style: normal;
+            font-weight: 300;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Regular.ttf") format("truetype");
-            font-weight: 400; font-style: normal;
+            font-weight: 400;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Medium.ttf") format("truetype");
-            font-weight: 500; font-style: normal;
+            font-weight: 500;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Semibold.ttf") format("truetype");
-            font-weight: 600; font-style: normal;
+            font-weight: 600;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Demibold.ttf") format("truetype");
-            font-weight: 650; font-style: normal;
+            font-weight: 650;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Bold.ttf") format("truetype");
-            font-weight: 700; font-style: normal;
+            font-weight: 700;
+            font-style: normal;
         }
         @font-face {
             font-family: "MiSans";
             src: url("ttf/MiSans-Heavy.ttf") format("truetype");
-            font-weight: 900; font-style: normal;
+            font-weight: 900;
+            font-style: normal;
         }
 
         :root {
@@ -59,18 +66,19 @@
             --banner-accent: #e8b730;
             --banner-text: #6b5a10;
             --banner-name: #5c3d0e;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.08), 0 3px 10px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08), 0 3px 10px rgba(0, 0, 0, 0.04);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
-            --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
-            --transition-slow: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
             font-family: "MiSans", system-ui, -apple-system, sans-serif;
         }
@@ -78,16 +86,19 @@
         body {
             background: var(--bg);
             background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(79,125,243,0.03) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 90%, rgba(79,125,243,0.02) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 50%, rgba(120,150,210,0.02) 0%, transparent 70%);
+                radial-gradient(ellipse at 20% 10%, rgba(79, 125, 243, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 90%, rgba(79, 125, 243, 0.02) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(120, 150, 210, 0.02) 0%, transparent 70%);
             min-height: 100vh;
             padding: 28px 20px 40px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .container { max-width: 1600px; margin: 0 auto; }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
 
         .top-bar {
             display: flex;
@@ -104,560 +115,968 @@
         }
 
         .lang-group {
-            display: flex; gap: 6px;
+            display: flex;
+            gap: 6px;
             background: var(--surface-alt);
-            border-radius: 12px; padding: 5px;
+            border-radius: 12px;
+            padding: 5px;
             border: 1px solid var(--border-light);
         }
 
         .lang-group button {
-            padding: 10px 22px; border: none;
-            background: transparent; border-radius: 10px;
-            cursor: pointer; transition: var(--transition);
-            font-weight: 500; font-size: 20px;
+            padding: 10px 22px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 20px;
             color: var(--text-secondary);
-            letter-spacing: 0.01em; white-space: nowrap;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
         }
 
         .lang-group button:hover {
             color: var(--text-primary);
-            background: rgba(79,125,243,0.06);
+            background: rgba(79, 125, 243, 0.06);
         }
 
         .lang-group button.active {
-            background: var(--accent); color: #fff;
-            font-weight: 600; box-shadow: 0 2px 8px rgba(79,125,243,0.3);
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(79, 125, 243, 0.3);
             border-radius: 8px;
         }
 
         .lang-group button.active:hover {
-            background: var(--accent-hover); color: #fff;
+            background: var(--accent-hover);
+            color: #fff;
         }
 
         .search-box {
-            padding: 12px 20px; width: 400px;
+            padding: 12px 20px;
+            width: 400px;
             border: 1.5px solid var(--border);
-            border-radius: 12px; font-size: 20px;
-            font-weight: 400; color: var(--text-primary);
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-primary);
             background: var(--surface-alt);
-            transition: var(--transition); outline: none;
+            transition: var(--transition);
+            outline: none;
             letter-spacing: 0.01em;
         }
 
         .search-box::placeholder {
-            color: var(--text-muted); font-weight: 300;
+            color: var(--text-muted);
+            font-weight: 300;
         }
 
         .search-box:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(79,125,243,0.08);
-            background: #fff; width: 440px;
+            box-shadow: 0 0 0 3px rgba(79, 125, 243, 0.08);
+            background: #fff;
+            width: 440px;
         }
 
         .count-text {
-            color: var(--text-secondary); font-weight: 500;
-            font-size: 20px; letter-spacing: 0.02em;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: 0.02em;
             background: var(--surface-alt);
-            padding: 10px 20px; border-radius: 22px;
+            padding: 10px 20px;
+            border-radius: 22px;
             border: 1px solid var(--border-light);
             white-space: nowrap;
         }
 
+        /* ====== 横幅 ====== */
         .banner-box {
             background: var(--banner-bg);
             border: 1.5px solid var(--banner-border);
             border-left: 6px solid var(--banner-accent);
             border-radius: var(--radius-md);
-            padding: 20px 24px; margin-bottom: 18px;
-            display: none; box-shadow: var(--shadow-sm);
+            padding: 20px 24px;
+            margin-bottom: 18px;
+            display: none;
+            box-shadow: var(--shadow-sm);
             transition: var(--transition-slow);
-            position: relative; overflow: hidden;
+            position: relative;
+            overflow: hidden;
         }
 
         .banner-box::before {
-            content: ''; position: absolute;
-            top: -30px; right: -30px;
-            width: 120px; height: 120px;
-            background: radial-gradient(circle, rgba(232,183,48,0.08) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none;
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(232, 183, 48, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .banner-box.show {
             display: block;
-            animation: bannerSlideIn 0.4s cubic-bezier(0.22,0.61,0.36,1);
+            animation: bannerSlideIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* 收起状态：内容隐藏，padding减小 */
+        .banner-box.collapsed {
+            padding: 10px 24px;
+        }
+        .banner-box.collapsed .banner-list {
+            display: none;
+        }
+        .banner-box.collapsed .banner-title {
+            margin-bottom: 0;
         }
 
         @keyframes bannerSlideIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 横幅头部：标题 + 按钮 flex 布局 */
+        .banner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
         }
 
         .banner-title {
-            font-weight: 700; color: #7a6518;
-            margin-bottom: 12px; font-size: 22px;
+            font-weight: 700;
+            color: #7a6518;
+            font-size: 22px;
             letter-spacing: 0.02em;
-            display: flex; align-items: center; gap: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex: 1;
         }
 
-        .banner-title::before { content: '🎉'; font-size: 24px; }
+        .banner-title::before {
+            content: '🎉';
+            font-size: 24px;
+        }
+
+        .banner-title-text {
+            flex: 1;
+        }
+
+        /* 切换按钮 */
+        .banner-toggle-btn {
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--banner-border);
+            border-radius: 8px;
+            padding: 6px 18px;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--banner-text);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: "MiSans", system-ui, -apple-system, sans-serif;
+            letter-spacing: 0.02em;
+            user-select: none;
+            line-height: 1.4;
+        }
+
+        .banner-toggle-btn:hover {
+            background: rgba(232, 183, 48, 0.15);
+            border-color: var(--banner-accent);
+            box-shadow: 0 2px 8px rgba(232, 183, 48, 0.15);
+        }
+
+        .banner-toggle-btn:active {
+            transform: scale(0.96);
+        }
 
         .banner-list {
-            font-size: 20px; color: var(--banner-text);
-            line-height: 1.8; font-weight: 400;
+            font-size: 20px;
+            color: var(--banner-text);
+            line-height: 1.8;
+            font-weight: 400;
         }
 
-        .banner-list>div { padding: 4px 0 4px 4px; }
+        .banner-list>div {
+            padding: 4px 0 4px 4px;
+        }
 
-        .bday-name { font-weight: 650; color: var(--banner-name); letter-spacing: 0.02em; }
-        .bday-date { font-weight: 400; color: #7a6a40; font-size: 0.94em; letter-spacing: 0.02em; }
-        .bday-sep { color: #b8a97a; font-weight: 400; margin: 0 1px; }
+        .bday-name {
+            font-weight: 650;
+            color: var(--banner-name);
+            letter-spacing: 0.02em;
+        }
+        .bday-date {
+            font-weight: 400;
+            color: #7a6a40;
+            font-size: 0.94em;
+            letter-spacing: 0.02em;
+        }
+        .bday-sep {
+            color: #b8a97a;
+            font-weight: 400;
+            margin: 0 1px;
+        }
 
+        /* ====== 表格 ====== */
         .table-wrapper {
             background: var(--surface);
             border-radius: var(--radius-lg);
-            overflow: hidden; box-shadow: var(--shadow-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-light);
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        table { width: 100%; border-collapse: collapse; background: transparent; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
 
-        th, td {
-            padding: 20px 16px; text-align: center;
+        th,
+        td {
+            padding: 20px 16px;
+            text-align: center;
             border-bottom: 1px solid var(--border-light);
-            font-weight: 400; font-size: 20px;
+            font-weight: 400;
+            font-size: 20px;
             color: var(--text-primary);
-            letter-spacing: 0.01em; vertical-align: middle;
+            letter-spacing: 0.01em;
+            vertical-align: middle;
         }
 
         th {
-            background: #f6f9fd; font-weight: 650;
-            cursor: pointer; user-select: none;
-            color: var(--text-primary); font-size: 20px;
-            letter-spacing: 0.03em; text-transform: uppercase;
-            position: sticky; top: 0; z-index: 1;
+            background: #f6f9fd;
+            font-weight: 650;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text-primary);
+            font-size: 20px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 1;
             transition: background var(--transition);
             border-bottom: 2px solid #e2e9f3;
         }
 
-        th:hover { background: #edf2f9; }
-        th:active { background: #e4ecf7; }
-
-        th .sort-mark {
-            margin-left: 6px; color: var(--accent);
-            font-weight: 700; font-size: 16px;
-            display: inline-block; transition: transform var(--transition);
+        th:hover {
+            background: #edf2f9;
+        }
+        th:active {
+            background: #e4ecf7;
         }
 
-        th.sort-active .sort-mark { color: var(--accent); }
+        th .sort-mark {
+            margin-left: 6px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-block;
+            transition: transform var(--transition);
+        }
 
-        tr { transition: background var(--transition); }
-        tr:hover td { background: #fafcfe; }
-        tr:last-child td { border-bottom: none; }
-        tr:nth-child(even) td { background: #fafbfd; }
-        tr:nth-child(even):hover td { background: #f5f8fc; }
+        th.sort-active .sort-mark {
+            color: var(--accent);
+        }
 
-        td:nth-child(2) { font-weight: 500; letter-spacing: 0.02em; }
-        td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) {
-            font-weight: 400; color: var(--text-primary);
+        tr {
+            transition: background var(--transition);
+        }
+        tr:hover td {
+            background: #fafcfe;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:nth-child(even) td {
+            background: #fafbfd;
+        }
+        tr:nth-child(even):hover td {
+            background: #f5f8fc;
+        }
+
+        td:nth-child(2) {
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(5),
+        td:nth-child(6) {
+            font-weight: 400;
+            color: var(--text-primary);
         }
 
         .no-data {
-            color: var(--text-muted); font-weight: 300;
-            font-style: italic; font-size: 0.9em;
+            color: var(--text-muted);
+            font-weight: 300;
+            font-style: italic;
+            font-size: 0.9em;
         }
 
         .avatar-img {
-            width: 140px; height: 140px; object-fit: cover;
-            border-radius: 12px; border: 2px solid #eef2f8;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: var(--transition-slow); background: #f8fafc;
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #eef2f8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-slow);
+            background: #f8fafc;
         }
 
         tr:hover .avatar-img {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            border-color: #dce4f0; transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border-color: #dce4f0;
+            transform: scale(1.04);
         }
 
         /* ========== 平板设备 ========== */
         @media (max-width: 900px) {
-            body { padding: 12px 8px 24px; }
-            .top-bar { padding: 12px 16px; gap: 12px; border-radius: var(--radius-sm); }
-            .lang-group button { padding: 8px 14px; font-size: 16px; border-radius: 8px; }
-            .lang-group button.active { border-radius: 6px; }
-            .search-box { width: 100%; max-width: 320px; font-size: 16px; }
-            .search-box:focus { max-width: 340px; }
-            .count-text { font-size: 16px; padding: 8px 16px; }
-            th, td { padding: 12px 8px; font-size: 16px; }
-            th { font-size: 16px; }
-            .avatar-img { width: 90px; height: 90px; border-radius: 8px; border-width: 1.5px; }
-            .banner-box { padding: 14px 18px; border-left-width: 5px; border-radius: var(--radius-sm); }
-            .banner-title { font-size: 18px; }
-            .banner-list { font-size: 16px; line-height: 1.7; }
-            .table-wrapper { border-radius: var(--radius-sm); }
+            body {
+                padding: 12px 8px 24px;
+            }
+            .top-bar {
+                padding: 12px 16px;
+                gap: 12px;
+                border-radius: var(--radius-sm);
+            }
+            .lang-group button {
+                padding: 8px 14px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+            .lang-group button.active {
+                border-radius: 6px;
+            }
+            .search-box {
+                width: 100%;
+                max-width: 320px;
+                font-size: 16px;
+            }
+            .search-box:focus {
+                max-width: 340px;
+            }
+            .count-text {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+            th,
+            td {
+                padding: 12px 8px;
+                font-size: 16px;
+            }
+            th {
+                font-size: 16px;
+            }
+            .avatar-img {
+                width: 90px;
+                height: 90px;
+                border-radius: 8px;
+                border-width: 1.5px;
+            }
+            .banner-box {
+                padding: 14px 18px;
+                border-left-width: 5px;
+                border-radius: var(--radius-sm);
+            }
+            .banner-box.collapsed {
+                padding: 8px 18px;
+            }
+            .banner-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            .banner-list {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .banner-toggle-btn {
+                font-size: 15px;
+                padding: 4px 14px;
+            }
+            .table-wrapper {
+                border-radius: var(--radius-sm);
+            }
         }
 
-        /* ========== 手机端优化：两行标题栏，避免溢出，表格一屏显示 ========== */
+        /* ========== 手机端优化 ========== */
         @media (max-width: 768px) {
             .top-bar {
                 display: grid;
                 grid-template-columns: 1fr auto;
                 grid-template-rows: auto auto;
-                gap: 8px; align-items: center;
+                gap: 8px;
+                align-items: center;
                 padding: 10px 12px;
             }
 
-            .lang-group { grid-column: 1; grid-row: 1; justify-self: start; }
+            .lang-group {
+                grid-column: 1;
+                grid-row: 1;
+                justify-self: start;
+            }
             .count-text {
-                grid-column: 2; grid-row: 1; justify-self: end;
-                font-size: 13px; padding: 4px 10px;
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: end;
+                font-size: 13px;
+                padding: 4px 10px;
                 white-space: nowrap;
-                /* 防止计数溢出：减小内边距和字号 */
             }
 
             .search-box {
-                grid-column: 1 / -1; grid-row: 2;
-                width: 100%; max-width: 100%;
-                font-size: 15px; padding: 8px 12px;
-                margin: 0; box-sizing: border-box;
+                grid-column: 1 / -1;
+                grid-row: 2;
+                width: 100%;
+                max-width: 100%;
+                font-size: 15px;
+                padding: 8px 12px;
+                margin: 0;
+                box-sizing: border-box;
             }
 
             .lang-group button {
-                padding: 5px 10px; font-size: 13px;
+                padding: 5px 10px;
+                font-size: 13px;
             }
 
-            .table-wrapper { overflow-x: hidden; }
-            table { table-layout: fixed; width: 100%; }
+            .table-wrapper {
+                overflow-x: hidden;
+            }
+            table {
+                table-layout: fixed;
+                width: 100%;
+            }
 
-            th, td {
-                padding: 10px 4px; font-size: 14px;
-                white-space: normal; word-wrap: break-word;
+            th,
+            td {
+                padding: 10px 4px;
+                font-size: 14px;
+                white-space: normal;
+                word-wrap: break-word;
                 overflow-wrap: break-word;
             }
 
-            th { font-size: 14px; white-space: normal; }
-            .avatar-img { width: 52px; height: 52px; border-radius: 6px; border-width: 1px; }
-            .no-data { font-size: 13px; }
-            td:nth-child(6) { font-size: 14px; }
-            .bday-name { font-size: 16px; }
-            .bday-date { font-size: 15px; }
+            th {
+                font-size: 14px;
+                white-space: normal;
+            }
+            .avatar-img {
+                width: 52px;
+                height: 52px;
+                border-radius: 6px;
+                border-width: 1px;
+            }
+            .no-data {
+                font-size: 13px;
+            }
+            td:nth-child(6) {
+                font-size: 14px;
+            }
+            .bday-name {
+                font-size: 16px;
+            }
+            .bday-date {
+                font-size: 15px;
+            }
+            .banner-box {
+                padding: 10px 14px;
+                border-left-width: 4px;
+            }
+            .banner-box.collapsed {
+                padding: 6px 14px;
+            }
+            .banner-title {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+            .banner-title::before {
+                font-size: 18px;
+            }
+            .banner-list {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            .banner-toggle-btn {
+                font-size: 13px;
+                padding: 3px 12px;
+                border-radius: 6px;
+            }
+            .banner-header {
+                gap: 8px;
+            }
         }
 
         @media (max-width: 380px) {
-            th, td { padding: 8px 2px; font-size: 13px; }
-            th { font-size: 13px; }
-            .avatar-img { width: 44px; height: 44px; }
-            .count-text { font-size: 12px; padding: 3px 8px; }
-            .search-box { font-size: 14px; padding: 6px 10px; }
-            .lang-group button { padding: 4px 8px; font-size: 12px; }
+            th,
+            td {
+                padding: 8px 2px;
+                font-size: 13px;
+            }
+            th {
+                font-size: 13px;
+            }
+            .avatar-img {
+                width: 44px;
+                height: 44px;
+            }
+            .count-text {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+            .search-box {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+            .lang-group button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+            .banner-title {
+                font-size: 14px;
+            }
+            .banner-list {
+                font-size: 13px;
+            }
+            .banner-toggle-btn {
+                font-size: 12px;
+                padding: 2px 10px;
+            }
         }
 
         /* 滚动条 */
-        .table-wrapper::-webkit-scrollbar { height: 6px; }
-        .table-wrapper::-webkit-scrollbar-track { background: #f0f2f5; border-radius: 3px; }
-        .table-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        .table-wrapper::-webkit-scrollbar-thumb:hover { background: #a0afc0; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #d1d9e4; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #bcc6d4; }
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f0f2f5;
+            border-radius: 3px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #a0afc0;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d9e4;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bcc6d4;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="top-bar">
-        <div class="lang-group">
-            <button data-lang="zh" class="active">中</button>
-            <button data-lang="ja">日</button>
-            <button data-lang="en">En</button>
+    <div class="container">
+        <div class="top-bar">
+            <div class="lang-group">
+                <button data-lang="zh" class="active">中</button>
+                <button data-lang="ja">日</button>
+                <button data-lang="en">En</button>
+            </div>
+            <input type="text" class="search-box" id="searchInput" placeholder="搜索角色名...">
+            <div class="count-text" id="countText">加载中...</div>
         </div>
-        <input type="text" class="search-box" id="searchInput" placeholder="搜索角色名...">
-        <div class="count-text" id="countText">加载中...</div>
+
+        <!-- 寿星提醒横幅 -->
+        <div class="banner-box" id="birthdayBanner">
+            <div class="banner-header">
+                <div class="banner-title" id="bannerTitle">
+                    <span class="banner-title-text">寿星提醒</span>
+                </div>
+                <button class="banner-toggle-btn" id="bannerToggleBtn">收起</button>
+            </div>
+            <div class="banner-list" id="bannerContent"></div>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="charTable">
+                <thead>
+                    <tr>
+                        <th data-sort="imgKey">头像 <span class="sort-mark"></span></th>
+                        <th data-sort="name">角色名 <span class="sort-mark"></span></th>
+                        <th data-sort="height">身高(CM) <span class="sort-mark"></span></th>
+                        <th data-sort="weight">体重(KG) <span class="sort-mark"></span></th>
+                        <th data-sort="bmi">BMI <span class="sort-mark"></span></th>
+                        <th data-sort="birthday">转光日/生日 <span class="sort-mark"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="banner-box" id="birthdayBanner">
-        <div class="banner-title" id="bannerTitle">寿星提醒</div>
-        <div class="banner-list" id="bannerContent"></div>
-    </div>
-
-    <div class="table-wrapper">
-        <table id="charTable">
-            <thead>
-                <tr>
-                    <th data-sort="imgKey">头像 <span class="sort-mark"></span></th>
-                    <th data-sort="name">角色名 <span class="sort-mark"></span></th>
-                    <th data-sort="height">身高(CM) <span class="sort-mark"></span></th>
-                    <th data-sort="weight">体重(KG) <span class="sort-mark"></span></th>
-                    <th data-sort="bmi">BMI <span class="sort-mark"></span></th>
-                    <th data-sort="birthday">转光日/生日 <span class="sort-mark"></span></th>
-                </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    const i18n = {
-        zh: {
-            gameTitle: "东京放课后召唤师",
-            searchPlaceholder: "搜索角色名...",
-            countPrefix: "共 ", countSuffix: " 个角色",
-            bannerTitle: "寿星提醒",
-            bannerToday: "🎂 今日寿星：",
-            bannerWeek: "✨ 未来一周寿星：",
-            colAvatar: "头像", colName: "角色名",
-            colHeight: "身高(CM)", colWeight: "体重(KG)",
-            colBMI: "BMI", colBirthday: "转光日/生日",
-            noData: "无数据"
-        },
-        ja: {
-            gameTitle: "東京放課後サモナーズ",
-            searchPlaceholder: "キャラ名で検索",
-            countPrefix: "合計 ", countSuffix: " キャラクター",
-            bannerTitle: "誕生日お知らせ",
-            bannerToday: "🎂 今日誕生日キャラ：",
-            bannerWeek: "✨ 今後1週間誕生日：",
-            colAvatar: "アイコン", colName: "キャラ名",
-            colHeight: "身長(CM)", colWeight: "体重(KG)",
-            colBMI: "BMI", colBirthday: "転光日/誕生日",
-            noData: "データなし"
-        },
-        en: {
-            gameTitle: "Tokyo Afterschool Summoners",
-            searchPlaceholder: "Search character name",
-            countPrefix: "Total ", countSuffix: " characters",
-            bannerTitle: "Birthday Reminder",
-            bannerToday: "🎂 Today's Birthday Characters: ",
-            bannerWeek: "✨ Birthdays in next 7 days: ",
-            colAvatar: "Avatar", colName: "Character Name",
-            colHeight: "Height(CM)", colWeight: "Weight(KG)",
-            colBMI: "BMI", colBirthday: "Summon Date/Birthday",
-            noData: "No data"
-        }
-    };
-
-    let allCharList = [];
-    let currentLang = "zh";
-    let sortField = "name";
-    let sortAsc = true;
-    let searchText = "";
-
-    const $ = s => document.querySelector(s);
-    const $$ = s => document.querySelectorAll(s);
-    const tableBody = $("#tableBody");
-    const searchInput = $("#searchInput");
-    const countText = $("#countText");
-    const birthdayBanner = $("#birthdayBanner");
-    const bannerContent = $("#bannerContent");
-    const bannerTitle = $("#bannerTitle");
-
-    function getLocalText(item, type, lang) {
-        const map = {
-            height: { zh: "zhHeight", ja: "jaHeight", en: "enHeight" },
-            weight: { zh: "zhWeight", ja: "jaWeight", en: "enWeight" },
-            birthday: { zh: "zhBirthday", ja: "jaBirthday", en: "enBirthday" }
+    <script>
+        const i18n = {
+            zh: {
+                gameTitle: "东京放课后召唤师",
+                searchPlaceholder: "搜索角色名...",
+                countPrefix: "共 ",
+                countSuffix: " 个角色",
+                bannerTitle: "寿星提醒",
+                bannerToday: "🎂 今日寿星：",
+                bannerWeek: "✨ 未来一周寿星：",
+                colAvatar: "头像",
+                colName: "角色名",
+                colHeight: "身高(CM)",
+                colWeight: "体重(KG)",
+                colBMI: "BMI",
+                colBirthday: "转光日/生日",
+                noData: "无数据",
+                btnCollapse: "收起",
+                btnExpand: "展开"
+            },
+            ja: {
+                gameTitle: "東京放課後サモナーズ",
+                searchPlaceholder: "キャラ名で検索",
+                countPrefix: "合計 ",
+                countSuffix: " キャラクター",
+                bannerTitle: "誕生日お知らせ",
+                bannerToday: "🎂 今日誕生日キャラ：",
+                bannerWeek: "✨ 今後1週間誕生日：",
+                colAvatar: "アイコン",
+                colName: "キャラ名",
+                colHeight: "身長(CM)",
+                colWeight: "体重(KG)",
+                colBMI: "BMI",
+                colBirthday: "転光日/誕生日",
+                noData: "データなし",
+                btnCollapse: "折りたたむ",
+                btnExpand: "展開"
+            },
+            en: {
+                gameTitle: "Tokyo Afterschool Summoners",
+                searchPlaceholder: "Search character name",
+                countPrefix: "Total ",
+                countSuffix: " characters",
+                bannerTitle: "Birthday Reminder",
+                bannerToday: "🎂 Today's Birthday Characters: ",
+                bannerWeek: "✨ Birthdays in next 7 days: ",
+                colAvatar: "Avatar",
+                colName: "Character Name",
+                colHeight: "Height(CM)",
+                colWeight: "Weight(KG)",
+                colBMI: "BMI",
+                colBirthday: "Summon Date/Birthday",
+                noData: "No data",
+                btnCollapse: "Collapse",
+                btnExpand: "Expand"
+            }
         };
-        const field = map[type][lang];
-        return item[field] ?? item[`${type}Raw`];
-    }
 
-    async function loadJsonData() {
-        try {
-            countText.innerText = "正在请求JSON文件";
-            const res = await fetch("./characters.json");
-            if (!res.ok) throw new Error(`文件访问失败 状态码:${res.status}`);
-            countText.innerText = "正在解析数据";
-            allCharList = await res.json();
-            countText.innerText = `共${allCharList.length}个角色`;
-            renderAll();
-        } catch (err) {
-            countText.innerText = "加载失败：" + err.message;
-            console.error("完整错误日志", err);
+        let allCharList = [];
+        let currentLang = "zh";
+        let sortField = "name";
+        let sortAsc = true;
+        let searchText = "";
+        let bannerExpanded = true; // 横幅展开状态，默认展开
+
+        const $ = s => document.querySelector(s);
+        const $$ = s => document.querySelectorAll(s);
+        const tableBody = $("#tableBody");
+        const searchInput = $("#searchInput");
+        const countText = $("#countText");
+        const birthdayBanner = $("#birthdayBanner");
+        const bannerContent = $("#bannerContent");
+        const bannerTitle = $("#bannerTitle");
+        const bannerToggleBtn = $("#bannerToggleBtn");
+
+        function getLocalText(item, type, lang) {
+            const map = {
+                height: { zh: "zhHeight", ja: "jaHeight", en: "enHeight" },
+                weight: { zh: "zhWeight", ja: "jaWeight", en: "enWeight" },
+                birthday: { zh: "zhBirthday", ja: "jaBirthday", en: "enBirthday" }
+            };
+            const field = map[type][lang];
+            return item[field] ?? item[`${type}Raw`];
         }
-    }
-    window.onload = loadJsonData;
 
-    function getTodayMD() {
-        const d = new Date();
-        const m = String(d.getMonth() + 1).padStart(2, "0");
-        const day = String(d.getDate()).padStart(2, "0");
-        return `${m}-${day}`;
-    }
-
-    function birthdayIn7Days(birthMD) {
-        const today = new Date();
-        const [bm, bd] = birthMD.split("-").map(Number);
-        const target = new Date(today.getFullYear(), bm - 1, bd);
-        if (target < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
-            target.setFullYear(today.getFullYear() + 1);
+        async function loadJsonData() {
+            try {
+                countText.innerText = "正在请求JSON文件";
+                const res = await fetch("./characters.json");
+                if (!res.ok) throw new Error(`文件访问失败 状态码:${res.status}`);
+                countText.innerText = "正在解析数据";
+                allCharList = await res.json();
+                countText.innerText = `共${allCharList.length}个角色`;
+                renderAll();
+            } catch (err) {
+                countText.innerText = "加载失败：" + err.message;
+                console.error("完整错误日志", err);
+            }
         }
-        const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
-        return diff >= 0 && diff <= 7;
-    }
+        window.onload = loadJsonData;
 
-    function getFilteredSorted() {
-        let list = allCharList.filter(item => {
-            const kw = searchText.toLowerCase();
-            return item.zhName.toLowerCase().includes(kw) ||
-                item.jaName.toLowerCase().includes(kw) ||
-                item.enName.toLowerCase().includes(kw);
-        });
-        list.sort((a, b) => {
-            let valA, valB;
-            switch (sortField) {
-                case "imgKey": valA = a.imgKey; valB = b.imgKey; break;
-                case "name":
-                    valA = currentLang === "zh" ? a.zhName : currentLang === "ja" ? a.jaName : a.enName;
-                    valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
-                    break;
-                case "height":
-                    valA = parseFloat(a.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    valB = parseFloat(b.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    break;
-                case "weight":
-                    valA = parseFloat(a.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    break;
-                case "bmi":
-                    const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
-                    const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
-                    if (isMultiBmiA) valA = -99999; else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    if (isMultiBmiB) valB = -99999; else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
-                    break;
-                case "birthday": valA = a.birthdayMD; valB = b.birthdayMD; break;
-            }
-            if (typeof valA === "number" && typeof valB === "number") {
-                return sortAsc ? valA - valB : valB - valA;
-            } else {
-                const sa = String(valA).toLowerCase();
-                const sb = String(valB).toLowerCase();
-                if (sa < sb) return sortAsc ? -1 : 1;
-                if (sa > sb) return sortAsc ? 1 : -1;
-                return 0;
-            }
-        });
-        return list;
-    }
-
-    function renderTable() {
-        const t = i18n[currentLang];
-        const data = getFilteredSorted();
-        countText.innerText = `${t.countPrefix}${data.length}${t.countSuffix}`;
-        tableBody.innerHTML = "";
-        data.forEach(char => {
-            const tr = document.createElement("tr");
-            const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
-            const heightText = getLocalText(char, "height", currentLang);
-            const weightText = getLocalText(char, "weight", currentLang);
-            const birthdayText = getLocalText(char, "birthday", currentLang);
-            const hShow = heightText === "/" || heightText === "" ? `<span class="no-data">${t.noData}</span>` : heightText;
-            const wShow = weightText === "/" || weightText === "" ? `<span class="no-data">${t.noData}</span>` : weightText;
-            let bmiRawText = char.bmiRaw?.trim() ?? "";
-            let bmiShow = bmiRawText === "" || bmiRawText === "/" ? `<span class="no-data">${t.noData}</span>` : bmiRawText;
-            const bdayShow = birthdayText;
-            const avatarSrc = `avatar/${char.imgKey}.png`;
-            tr.innerHTML = `
-                <td><img class="avatar-img" src="${avatarSrc}" alt="${nameShow}" loading="lazy" onerror="this.style.opacity='0.3';this.style.background='#f0f2f5';"></td>
-                <td>${nameShow}</td>
-                <td>${hShow}</td>
-                <td>${wShow}</td>
-                <td>${bmiShow}</td>
-                <td>${bdayShow}</td>
-            `;
-            tableBody.appendChild(tr);
-        });
-        $$("thead th").forEach(th => {
-            const mark = th.querySelector(".sort-mark");
-            if (th.dataset.sort === sortField) {
-                mark.innerText = sortAsc ? "↑" : "↓";
-                th.classList.add("sort-active");
-            } else {
-                mark.innerText = "";
-                th.classList.remove("sort-active");
-            }
-        });
-    }
-
-    function renderBirthdayBanner() {
-        const t = i18n[currentLang];
-        const todayMD = getTodayMD();
-        let todayList = [], weekList = [];
-        allCharList.forEach(c => {
-            const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
-            const birthMD = c.birthdayMD;
-            if (birthMD === todayMD) todayList.push({ name, birthMD });
-            else if (birthdayIn7Days(birthMD)) weekList.push({ name, birthMD });
-        });
-        if (!todayList.length && !weekList.length) {
-            birthdayBanner.classList.remove("show");
-            return;
+        function getTodayMD() {
+            const d = new Date();
+            const m = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return `${m}-${day}`;
         }
-        if (weekList.length) {
-            weekList.sort((a, b) => {
-                const [am, ad] = a.birthMD.split("-").map(Number);
-                const [bm, bd] = b.birthMD.split("-").map(Number);
-                const today = new Date();
-                const year = today.getFullYear();
-                let dateA = new Date(year, am - 1, ad);
-                let dateB = new Date(year, bm - 1, bd);
-                if (dateA < today) dateA.setFullYear(year + 1);
-                if (dateB < today) dateB.setFullYear(year + 1);
-                return dateA - dateB;
+
+        function birthdayIn7Days(birthMD) {
+            const today = new Date();
+            const [bm, bd] = birthMD.split("-").map(Number);
+            const target = new Date(today.getFullYear(), bm - 1, bd);
+            if (target < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+                target.setFullYear(today.getFullYear() + 1);
+            }
+            const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+            return diff >= 0 && diff <= 7;
+        }
+
+        function getFilteredSorted() {
+            let list = allCharList.filter(item => {
+                const kw = searchText.toLowerCase();
+                return item.zhName.toLowerCase().includes(kw) ||
+                    item.jaName.toLowerCase().includes(kw) ||
+                    item.enName.toLowerCase().includes(kw);
+            });
+            list.sort((a, b) => {
+                let valA, valB;
+                switch (sortField) {
+                    case "imgKey":
+                        valA = a.imgKey;
+                        valB = b.imgKey;
+                        break;
+                    case "name":
+                        valA = currentLang === "zh" ? a.zhName : currentLang === "ja" ? a.jaName : a.enName;
+                        valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
+                        break;
+                    case "height":
+                        valA = parseFloat(a.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        valB = parseFloat(b.heightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        break;
+                    case "weight":
+                        valA = parseFloat(a.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        valB = parseFloat(b.weightRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        break;
+                    case "bmi":
+                        const isMultiBmiA = a.bmiRaw.includes("/") || a.bmiRaw.includes("-");
+                        const isMultiBmiB = b.bmiRaw.includes("/") || b.bmiRaw.includes("-");
+                        if (isMultiBmiA) valA = -99999;
+                        else valA = parseFloat(a.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        if (isMultiBmiB) valB = -99999;
+                        else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
+                        break;
+                    case "birthday":
+                        valA = a.birthdayMD;
+                        valB = b.birthdayMD;
+                        break;
+                }
+                if (typeof valA === "number" && typeof valB === "number") {
+                    return sortAsc ? valA - valB : valB - valA;
+                } else {
+                    const sa = String(valA).toLowerCase();
+                    const sb = String(valB).toLowerCase();
+                    if (sa < sb) return sortAsc ? -1 : 1;
+                    if (sa > sb) return sortAsc ? 1 : -1;
+                    return 0;
+                }
+            });
+            return list;
+        }
+
+        function renderTable() {
+            const t = i18n[currentLang];
+            const data = getFilteredSorted();
+            countText.innerText = `${t.countPrefix}${data.length}${t.countSuffix}`;
+            tableBody.innerHTML = "";
+            data.forEach(char => {
+                const tr = document.createElement("tr");
+                const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
+                const heightText = getLocalText(char, "height", currentLang);
+                const weightText = getLocalText(char, "weight", currentLang);
+                const birthdayText = getLocalText(char, "birthday", currentLang);
+                const hShow = heightText === "/" || heightText === "" ? `<span class="no-data">${t.noData}</span>` :
+                heightText;
+                const wShow = weightText === "/" || weightText === "" ? `<span class="no-data">${t.noData}</span>` :
+                weightText;
+                let bmiRawText = char.bmiRaw?.trim() ?? "";
+                let bmiShow = bmiRawText === "" || bmiRawText === "/" ? `<span class="no-data">${t.noData}</span>` :
+                bmiRawText;
+                const bdayShow = birthdayText;
+                const avatarSrc = `avatar/${char.imgKey}.png`;
+                tr.innerHTML = `
+                        <td><img class="avatar-img" src="${avatarSrc}" alt="${nameShow}" loading="lazy" onerror="this.style.opacity='0.3';this.style.background='#f0f2f5';"></td>
+                        <td>${nameShow}</td>
+                        <td>${hShow}</td>
+                        <td>${wShow}</td>
+                        <td>${bmiShow}</td>
+                        <td>${bdayShow}</td>
+                    `;
+                tableBody.appendChild(tr);
+            });
+            $$("thead th").forEach(th => {
+                const mark = th.querySelector(".sort-mark");
+                if (th.dataset.sort === sortField) {
+                    mark.innerText = sortAsc ? "↑" : "↓";
+                    th.classList.add("sort-active");
+                } else {
+                    mark.innerText = "";
+                    th.classList.remove("sort-active");
+                }
             });
         }
-        birthdayBanner.classList.add("show");
-        let html = "";
-        if (todayList.length) {
-            const todayItems = todayList.map(item =>
-                `<span class="bday-name">${item.name}</span><span class="bday-date">(${item.birthMD})</span>`
-            ).join('<span class="bday-sep">、</span>');
-            html += `<div>${t.bannerToday}${todayItems}</div>`;
+
+        // 渲染寿星提醒横幅
+        function renderBirthdayBanner() {
+            const t = i18n[currentLang];
+            const todayMD = getTodayMD();
+            let todayList = [],
+                weekList = [];
+            allCharList.forEach(c => {
+                const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
+                const birthMD = c.birthdayMD;
+                if (birthMD === todayMD) todayList.push({ name, birthMD });
+                else if (birthdayIn7Days(birthMD)) weekList.push({ name, birthMD });
+            });
+
+            // 判断是否有寿星数据
+            const hasData = todayList.length > 0 || weekList.length > 0;
+
+            // 如果没有数据，隐藏横幅
+            if (!hasData) {
+                birthdayBanner.classList.remove("show", "collapsed");
+                return;
+            }
+
+            // 排序
+            if (weekList.length) {
+                weekList.sort((a, b) => {
+                    const [am, ad] = a.birthMD.split("-").map(Number);
+                    const [bm, bd] = b.birthMD.split("-").map(Number);
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    let dateA = new Date(year, am - 1, ad);
+                    let dateB = new Date(year, bm - 1, bd);
+                    if (dateA < today) dateA.setFullYear(year + 1);
+                    if (dateB < today) dateB.setFullYear(year + 1);
+                    return dateA - dateB;
+                });
+            }
+
+            // 构建内容
+            let html = "";
+            if (todayList.length) {
+                const todayItems = todayList.map(item =>
+                    `<span class="bday-name">${item.name}</span><span class="bday-date">(${item.birthMD})</span>`
+                ).join('<span class="bday-sep">、</span>');
+                html += `<div>${t.bannerToday}${todayItems}</div>`;
+            }
+            if (weekList.length) {
+                const weekItems = weekList.map(item =>
+                    `<span class="bday-name">${item.name}</span><span class="bday-date">(${item.birthMD})</span>`
+                ).join('<span class="bday-sep">、</span>');
+                html += `<div>${t.bannerWeek}${weekItems}</div>`;
+            }
+            bannerContent.innerHTML = html;
+
+            // 根据展开状态控制显示
+            if (bannerExpanded) {
+                birthdayBanner.classList.remove("collapsed");
+                birthdayBanner.classList.add("show");
+                bannerToggleBtn.textContent = t.btnCollapse;
+            } else {
+                birthdayBanner.classList.add("collapsed", "show");
+                bannerToggleBtn.textContent = t.btnExpand;
+            }
         }
-        if (weekList.length) {
-            const weekItems = weekList.map(item =>
-                `<span class="bday-name">${item.name}</span><span class="bday-date">(${item.birthMD})</span>`
-            ).join('<span class="bday-sep">、</span>');
-            html += `<div>${t.bannerWeek}${weekItems}</div>`;
+
+        // 切换横幅展开/收起
+        function toggleBanner() {
+            const t = i18n[currentLang];
+            bannerExpanded = !bannerExpanded;
+            if (bannerExpanded) {
+                birthdayBanner.classList.remove("collapsed");
+                bannerToggleBtn.textContent = t.btnCollapse;
+            } else {
+                birthdayBanner.classList.add("collapsed");
+                bannerToggleBtn.textContent = t.btnExpand;
+            }
+            // 重新调整显示（确保show类存在）
+            birthdayBanner.classList.add("show");
         }
-        bannerContent.innerHTML = html;
-    }
 
-    function updateLang(lang) {
-        currentLang = lang;
-        const t = i18n[lang];
-        document.title = `${t.gameTitle} - Character List`;
-        searchInput.placeholder = t.searchPlaceholder;
-        bannerTitle.innerText = t.bannerTitle;
-        const ths = $$("thead th");
-        ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
-        ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
-        ths[2].innerHTML = `${t.colHeight} <span class="sort-mark"></span>`;
-        ths[3].innerHTML = `${t.colWeight} <span class="sort-mark"></span>`;
-        ths[4].innerHTML = `BMI <span class="sort-mark"></span>`;
-        ths[5].innerHTML = `${t.colBirthday} <span class="sort-mark"></span>`;
-        $$(".lang-group button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
-        renderAll();
-    }
+        function updateLang(lang) {
+            currentLang = lang;
+            const t = i18n[lang];
+            document.title = `${t.gameTitle} - Character List`;
+            searchInput.placeholder = t.searchPlaceholder;
+            // 更新标题（保留🎉图标）
+            const titleSpan = bannerTitle.querySelector(".banner-title-text");
+            if (titleSpan) titleSpan.textContent = t.bannerTitle;
+            // 更新按钮文字
+            if (bannerExpanded) {
+                bannerToggleBtn.textContent = t.btnCollapse;
+            } else {
+                bannerToggleBtn.textContent = t.btnExpand;
+            }
+            const ths = $$("thead th");
+            ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
+            ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
+            ths[2].innerHTML = `${t.colHeight} <span class="sort-mark"></span>`;
+            ths[3].innerHTML = `${t.colWeight} <span class="sort-mark"></span>`;
+            ths[4].innerHTML = `BMI <span class="sort-mark"></span>`;
+            ths[5].innerHTML = `${t.colBirthday} <span class="sort-mark"></span>`;
+            $$(".lang-group button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+            renderAll();
+        }
 
-    function renderAll() {
-        renderTable();
-        renderBirthdayBanner();
-    }
-
-    $$(".lang-group button").forEach(btn => btn.onclick = () => updateLang(btn.dataset.lang));
-    $$("thead th").forEach(th => {
-        th.onclick = () => {
-            const field = th.dataset.sort;
-            if (sortField === field) sortAsc = !sortAsc;
-            else { sortField = field; sortAsc = true; }
+        function renderAll() {
             renderTable();
-        };
-    });
-    searchInput.oninput = e => { searchText = e.target.value; renderTable(); };
+            renderBirthdayBanner();
+        }
 
-    loadJsonData();
-</script>
+        // ---- 事件绑定 ----
+        $$(".lang-group button").forEach(btn => btn.onclick = () => updateLang(btn.dataset.lang));
+
+        $$("thead th").forEach(th => {
+            th.onclick = () => {
+                const field = th.dataset.sort;
+                if (sortField === field) sortAsc = !sortAsc;
+                else { sortField = field;
+                    sortAsc = true; }
+                renderTable();
+            };
+        });
+
+        searchInput.oninput = e => { searchText = e.target.value;
+            renderTable(); };
+
+        // 横幅切换按钮事件
+        bannerToggleBtn.addEventListener("click", toggleBanner);
+
+        // 初始化
+        loadJsonData();
+    </script>
 </body>
 </html>
