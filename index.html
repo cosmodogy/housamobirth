@@ -100,7 +100,6 @@
             margin: 0 auto;
         }
 
-        /* 顶部工具栏 */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -266,28 +265,27 @@
             padding-left: 4px;
         }
 
-        /* 寿星名字 - 加粗突出 */
+        /* 调整后的寿星名字 —— 适度加粗，不再刺眼 */
         .bday-name {
-            font-weight: 700;
+            font-weight: 650;
             color: var(--banner-name);
             letter-spacing: 0.02em;
         }
 
-        /* 日期 - 较细字重 */
+        /* 日期 —— 提升字重到Regular，颜色加深一点，削弱对比 */
         .bday-date {
-            font-weight: 300;
-            color: #8a7a4a;
-            font-size: 0.92em;
-            letter-spacing: 0.03em;
+            font-weight: 400;
+            color: #7a6a40;
+            font-size: 0.94em;
+            letter-spacing: 0.02em;
         }
 
         .bday-sep {
-            color: #c4b896;
-            font-weight: 300;
+            color: #b8a97a;
+            font-weight: 400;
             margin: 0 1px;
         }
 
-        /* 表格容器 */
         .table-wrapper {
             background: var(--surface);
             border-radius: var(--radius-lg);
@@ -361,7 +359,6 @@
             border-bottom: none;
         }
 
-        /* 斑马纹 - 微妙的交替行颜色 */
         tr:nth-child(even) td {
             background: #fafbfd;
         }
@@ -370,13 +367,11 @@
             background: #f5f8fc;
         }
 
-        /* 角色名列稍微突出 */
         td:nth-child(2) {
             font-weight: 500;
             letter-spacing: 0.02em;
         }
 
-        /* 数据列 */
         td:nth-child(3),
         td:nth-child(4),
         td:nth-child(5),
@@ -385,7 +380,6 @@
             color: var(--text-primary);
         }
 
-        /* 无数据文本 */
         .no-data {
             color: var(--text-muted);
             font-weight: 300;
@@ -393,7 +387,6 @@
             font-size: 0.9em;
         }
 
-        /* 头像 */
         .avatar-img {
             width: 100px;
             height: 100px;
@@ -411,81 +404,66 @@
             transform: scale(1.04);
         }
 
-        /* 响应式设计 */
         @media (max-width: 900px) {
             body {
                 padding: 12px 8px 24px;
             }
-
             .top-bar {
                 padding: 10px 14px;
                 gap: 10px;
                 border-radius: var(--radius-sm);
             }
-
             .lang-group button {
                 padding: 6px 10px;
                 font-size: 12px;
                 border-radius: 6px;
             }
-
             .lang-group button.active {
                 border-radius: 5px;
             }
-
             .search-box {
                 width: 100%;
                 max-width: 260px;
                 font-size: 13px;
             }
-
             .search-box:focus {
                 width: 100%;
                 max-width: 280px;
             }
-
             .count-text {
                 font-size: 12px;
                 padding: 5px 10px;
             }
-
             th,
             td {
                 padding: 10px 5px;
                 font-size: 13px;
             }
-
             th {
                 font-size: 11px;
                 letter-spacing: 0.02em;
             }
-
             .avatar-img {
                 width: 56px;
                 height: 56px;
                 border-radius: 8px;
                 border-width: 1.5px;
             }
-
             tr:hover .avatar-img {
                 transform: scale(1.06);
             }
-
             .banner-box {
                 padding: 12px 14px;
                 border-left-width: 4px;
                 border-radius: var(--radius-sm);
             }
-
             .banner-title {
                 font-size: 13px;
             }
-
             .banner-list {
                 font-size: 12px;
                 line-height: 1.7;
             }
-
             .table-wrapper {
                 border-radius: var(--radius-sm);
             }
@@ -497,69 +475,55 @@
                 align-items: stretch;
                 gap: 8px;
             }
-
             .lang-group {
                 justify-content: center;
                 flex-wrap: wrap;
             }
-
             .search-box {
                 max-width: 100%;
                 width: 100%;
             }
-
             .search-box:focus {
                 max-width: 100%;
                 width: 100%;
             }
-
             .count-text {
                 text-align: center;
             }
-
             .avatar-img {
                 width: 44px;
                 height: 44px;
                 border-radius: 6px;
             }
-
             th,
             td {
                 padding: 8px 3px;
                 font-size: 11px;
             }
-
             th {
                 font-size: 10px;
             }
         }
 
-        /* 滚动条美化（Webkit浏览器） */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-
         ::-webkit-scrollbar-track {
             background: transparent;
         }
-
         ::-webkit-scrollbar-thumb {
             background: #d1d9e4;
             border-radius: 3px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #bcc6d4;
         }
-
-        /* 表格容器内的水平滚动（小屏幕） */
         @media (max-width: 700px) {
             .table-wrapper {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
-
             table {
                 min-width: 550px;
             }
@@ -667,7 +631,6 @@
         const bannerContent = $("#bannerContent");
         const bannerTitle = $("#bannerTitle");
 
-        // 根据语言读取对应三语字段
         function getLocalText(item, type, lang) {
             const map = {
                 height: { zh: "zhHeight", ja: "jaHeight", en: "enHeight" },
@@ -707,7 +670,6 @@
             const today = new Date();
             const [bm, bd] = birthMD.split("-").map(Number);
             const target = new Date(today.getFullYear(), bm - 1, bd);
-            // 如果今年的生日已过，则检查明年的生日（针对跨年情况）
             if (target < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
                 target.setFullYear(today.getFullYear() + 1);
             }
@@ -716,7 +678,6 @@
         }
 
         function getFilteredSorted() {
-            const t = i18n[currentLang];
             let list = allCharList.filter(item => {
                 const kw = searchText.toLowerCase();
                 return item.zhName.toLowerCase().includes(kw) ||
@@ -728,9 +689,7 @@
                 let valA, valB;
                 switch (sortField) {
                     case "imgKey":
-                        valA = a.imgKey;
-                        valB = b.imgKey;
-                        break;
+                        valA = a.imgKey; valB = b.imgKey; break;
                     case "name":
                         valA = currentLang === "zh" ? a.zhName : currentLang === "ja" ? a.jaName : a.enName;
                         valB = currentLang === "zh" ? b.zhName : currentLang === "ja" ? b.jaName : b.enName;
@@ -752,9 +711,7 @@
                         else valB = parseFloat(b.bmiRaw.replace(/[^0-9.]/g, "")) || -9999;
                         break;
                     case "birthday":
-                        valA = a.birthdayMD;
-                        valB = b.birthdayMD;
-                        break;
+                        valA = a.birthdayMD; valB = b.birthdayMD; break;
                 }
                 if (typeof valA === "number" && typeof valB === "number") {
                     return sortAsc ? valA - valB : valB - valA;
@@ -776,18 +733,14 @@
             tableBody.innerHTML = "";
             data.forEach(char => {
                 const tr = document.createElement("tr");
-                const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName :
-                    char.enName;
+                const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
                 const heightText = getLocalText(char, "height", currentLang);
                 const weightText = getLocalText(char, "weight", currentLang);
                 const birthdayText = getLocalText(char, "birthday", currentLang);
-                const hShow = heightText === "/" || heightText === "" ?
-                    `<span class="no-data">${t.noData}</span>` : heightText;
-                const wShow = weightText === "/" || weightText === "" ?
-                    `<span class="no-data">${t.noData}</span>` : weightText;
+                const hShow = heightText === "/" || heightText === "" ? `<span class="no-data">${t.noData}</span>` : heightText;
+                const wShow = weightText === "/" || weightText === "" ? `<span class="no-data">${t.noData}</span>` : weightText;
                 let bmiRawText = char.bmiRaw?.trim() ?? "";
-                let bmiShow = bmiRawText === "" || bmiRawText === "/" ?
-                    `<span class="no-data">${t.noData}</span>` : bmiRawText;
+                let bmiShow = bmiRawText === "" || bmiRawText === "/" ? `<span class="no-data">${t.noData}</span>` : bmiRawText;
                 const bdayShow = birthdayText;
                 const avatarSrc = `avatar/${char.imgKey}.png`;
                 tr.innerHTML = `
@@ -800,7 +753,6 @@
                 `;
                 tableBody.appendChild(tr);
             });
-            // 更新表头排序标记
             $$("thead th").forEach(th => {
                 const mark = th.querySelector(".sort-mark");
                 if (th.dataset.sort === sortField) {
@@ -813,12 +765,10 @@
             });
         }
 
-        // 修改后的横幅渲染：名字附带生日日期，名字比日期字重更粗
         function renderBirthdayBanner() {
             const t = i18n[currentLang];
             const todayMD = getTodayMD();
-            let todayList = [],
-                weekList = [];
+            let todayList = [], weekList = [];
             allCharList.forEach(c => {
                 const name = currentLang === "zh" ? c.zhName : currentLang === "ja" ? c.jaName : c.enName;
                 const birthMD = c.birthdayMD;
@@ -849,15 +799,12 @@
             bannerContent.innerHTML = html;
         }
 
-        // 更新语言函数：同步修改横幅大标题
         function updateLang(lang) {
             currentLang = lang;
             const t = i18n[lang];
             document.title = `${t.gameTitle} - Character List`;
             searchInput.placeholder = t.searchPlaceholder;
-            // 切换横幅标题文字
             bannerTitle.innerText = t.bannerTitle;
-
             const ths = $$("thead th");
             ths[0].innerHTML = `${t.colAvatar} <span class="sort-mark"></span>`;
             ths[1].innerHTML = `${t.colName} <span class="sort-mark"></span>`;
@@ -874,7 +821,6 @@
             renderBirthdayBanner();
         }
 
-        // 绑定页面事件
         $$(".lang-group button").forEach(btn => {
             btn.onclick = () => updateLang(btn.dataset.lang);
         });
