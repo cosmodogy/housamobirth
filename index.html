@@ -160,16 +160,7 @@ const i18n = {
         colWeight: "体重(KG)",
         colBMI: "BMI",
         colBirthday: "转光日/生日",
-        secret: "保密",
-        noData: "无数据",
-        ngText: "事务所NG不予公开",
-        twoSize: "两种体型",
-        noArmor: "去除铠甲后",
-        noTail: "不含尾巴",
-        withProsthetic: "包含义肢",
-        onlyBody: "仅肉体部分",
-        noMachine: "不含机械部件",
-        dragonChange: "龙种体型可变"
+        noData: "无数据"
     },
     ja: {
         gameTitle: "東京放課後サモナーズ",
@@ -184,16 +175,7 @@ const i18n = {
         colWeight: "体重(KG)",
         colBMI: "BMI",
         colBirthday: "転光日/誕生日",
-        secret: "非公開",
-        noData: "データなし",
-        ngText: "事務所NGにより非公表",
-        twoSize: "二種類の体格",
-        noArmor: "鎧を除く",
-        noTail: "尻尾抜き",
-        withProsthetic: "義肢重量含む",
-        onlyBody: "生体部分のみ",
-        noMachine: "機械部品を除く",
-        dragonChange: "竜種は体格可変"
+        noData: "データなし"
     },
     en: {
         gameTitle: "Tokyo Afterschool Summoners",
@@ -208,16 +190,7 @@ const i18n = {
         colWeight: "Weight(KG)",
         colBMI: "BMI",
         colBirthday: "Summon Date/Birthday",
-        secret: "Secret",
-        noData: "No data",
-        ngText: "Not disclosed due to agency NG",
-        twoSize: "Two body types",
-        noArmor: "Without armor",
-        noTail: "Excluding tail",
-        withProsthetic: "Including prosthetic weight",
-        onlyBody: "Biological part only",
-        noMachine: "Excluding mechanical parts",
-        dragonChange: "Dragonkin variable physique"
+        noData: "No data"
     }
 };
 
@@ -235,7 +208,7 @@ const countText = $("#countText");
 const birthdayBanner = $("#birthdayBanner");
 const bannerContent = $("#bannerContent");
 
-// 新增：根据语言读取对应三语字段
+// 根据语言读取对应三语字段
 function getLocalText(item, type, lang) {
     const map = {
         height: { zh: "zhHeight", ja: "jaHeight", en: "enHeight" },
@@ -243,7 +216,6 @@ function getLocalText(item, type, lang) {
         birthday: { zh: "zhBirthday", ja: "jaBirthday", en: "enBirthday" }
     };
     const field = map[type][lang];
-    // 容错：字段为空时回退原始纯数字Raw
     return item[field] ?? item[`${type}Raw`];
 }
 
@@ -264,29 +236,6 @@ async function loadJsonData() {
     }
 }
 window.onload = loadJsonData;
-
-function transNote(rawStr) {
-    const t = i18n[currentLang];
-    if (!rawStr) return "";
-    if (rawStr.includes("事务所NG")) return t.ngText;
-    if (rawStr.includes("两种体型")) return t.twoSize;
-    if (rawStr.includes("去除铠甲")) return t.noArmor;
-    if (rawStr.includes("不含尾巴")) return t.noTail;
-    if (rawStr.includes("包含义肢")) return t.withProsthetic;
-    if (rawStr.includes("仅肉体")) return t.onlyBody;
-    if (rawStr.includes("不含机械")) return t.noMachine;
-    if (rawStr.includes("龙种体型可变")) return t.dragonChange;
-    if (rawStr.includes("保密")) return t.secret;
-    return rawStr;
-}
-
-function formatDisplay(raw, note) {
-    const t = i18n[currentLang];
-    let str = String(raw);
-    if (note) str += ` (${transNote(note)})`;
-    if (str === "/" || str === "" || str.includes("非公表")) return t.noData;
-    return str;
-}
 
 function getTodayMD() {
     const d = new Date();
@@ -358,12 +307,12 @@ function renderTable() {
     data.forEach(char => {
         const tr = document.createElement("tr");
         const nameShow = currentLang === "zh" ? char.zhName : currentLang === "ja" ? char.jaName : char.enName;
-        // 读取三语独立身高/体重/生日文本
         const heightText = getLocalText(char, "height", currentLang);
         const weightText = getLocalText(char, "weight", currentLang);
         const birthdayText = getLocalText(char, "birthday", currentLang);
-        const hShow = formatDisplay(heightText, char.noteHeight);
-        const wShow = formatDisplay(weightText, char.noteWeight);
+        // 直接使用三语文本，不再拼接note注释
+        const hShow = heightText === "/" || heightText === "" ? t.noData : heightText;
+        const wShow = weightText === "/" || weightText === "" ? t.noData : weightText;
         const bmiShow = char.bmiNum !== null ? char.bmiNum.toFixed(2) : t.noData;
         const bdayShow = birthdayText;
         const avatarSrc = `avatar/${char.imgKey}.png`;
